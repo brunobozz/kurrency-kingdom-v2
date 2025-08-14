@@ -8,6 +8,7 @@ import { SpinnerService } from './services/spinner-service/spinner.service';
 import { OverlaySpinnerComponent } from './components/overlay-spinner/overlay-spinner.component';
 import { MainNavbarComponent } from './components/main-navbar/main-navbar.component';
 import { MainFooterComponent } from './components/main-footer/main-footer.component';
+import { MainMenuComponent } from './components/main-menu/main-menu.component';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ import { MainFooterComponent } from './components/main-footer/main-footer.compon
     OverlaySpinnerComponent,
     MainNavbarComponent,
     MainFooterComponent,
+    MainMenuComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

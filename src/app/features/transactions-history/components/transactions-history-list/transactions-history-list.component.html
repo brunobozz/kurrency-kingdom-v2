@@ -48,9 +48,12 @@
           </div>
         </td>
         <td class="text-end">
-          <div class="d-flex justify-content-end pe-2">
-            <span class="mdi mdi-eye"></span>
-          </div>
+          <span
+            data-bs-toggle="modal"
+            data-bs-target="#transactionDetails"
+            class="mdi mdi-eye me-1 cursor-pointer"
+            (click)="details(item.id)"
+          ></span>
         </td>
       </tr>
       <tr>

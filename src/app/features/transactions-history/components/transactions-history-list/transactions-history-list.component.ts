@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-transactions-history-list',
@@ -12,4 +12,9 @@ import { Component, Input } from '@angular/core';
 })
 export class TransactionsHistoryListComponent {
   @Input() list: any = [];
+  @Output() callDetails = new EventEmitter<string>();
+
+  public details(id: string) {
+    this.callDetails.emit(id);
+  }
 }

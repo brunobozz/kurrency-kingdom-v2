@@ -1,6 +1,7 @@
 <app-transaction-modal
   (refreshList)="getTransactions()"
 ></app-transaction-modal>
+<app-transaction-details #details></app-transaction-details>
 <div class="container">
   <app-transactions-history-header></app-transactions-history-header>
   <app-transactions-history-filter
@@ -8,6 +9,7 @@
   ></app-transactions-history-filter>
   <app-transactions-history-list
     [list]="pagedList"
+    (callDetails)="details.getTransaction($event)"
   ></app-transactions-history-list>
   <div class="d-flex justify-content-end mt-3">
     <app-list-paginator

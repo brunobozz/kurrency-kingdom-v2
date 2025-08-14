@@ -1,0 +1,94 @@
+<div
+  class="modal fade"
+  id="transactionDetails"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content">
+      <div
+        class="modal-header p-3 border-0"
+        style="background-color: rgba(0, 0, 0, 0.2)"
+      >
+        <h1 class="modal-title fs-5" id="transactionModalLabel">
+          <span class="mdi mdi-swap-horizontal me-2"></span>
+          <span>Detalhes da Transação</span>
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div *ngIf="transaction" class="modal-body">
+        <h5>Cliente: {{ transaction.user }}</h5>
+
+        <div class="list-group list-group-flush">
+          <div class="list-group-item justify-between">
+            <span>Data - Hora</span>
+            <span>
+              {{ transaction.createdAt | date : "dd/MM" }} -
+              {{ transaction.createdAt | date : "hh:mm:ss" }}h
+            </span>
+          </div>
+          <div class="list-group-item justify-between">
+            <span>Moeda Origem</span>
+            <div class="justify-between">
+              <img
+                src="imgs/currency-{{ transaction.currencyOrigin.name }}.png"
+                style="height: 16px"
+                class="me-1"
+              />
+              <span>
+                {{ transaction.currencyOrigin.code }}
+                {{ transaction.currencyOrigin.value }}
+              </span>
+            </div>
+          </div>
+          <div class="list-group-item justify-between">
+            <span>Cotação de Conversão</span>
+            <span>x {{ transaction.quote }}</span>
+          </div>
+          <div class="list-group-item justify-between">
+            <span>Moeda Destino</span>
+            <div class="justify-between">
+              <img
+                src="imgs/currency-{{ transaction.currencyDestiny.name }}.png"
+                style="height: 16px"
+                class="me-1"
+              />
+              <span>
+                {{ transaction.currencyDestiny.code }}
+                {{ transaction.currencyDestiny.value }}
+              </span>
+            </div>
+          </div>
+          <div class="list-group-item justify-between">
+            <span>Taxa de Corretagem</span>
+            <span>
+              {{ transaction.currencyOrigin.tax }}% =
+              {{ transaction.currencyDestiny.code }}
+              {{ transaction.taxValue }}
+            </span>
+          </div>
+
+          <div class="list-group-item justify-between">
+            <span>Valor Recebido</span>
+            <span>
+              {{ transaction.currencyDestiny.code }}
+              {{ transaction.currencyDestiny.valueTaxed }}
+            </span>
+          </div>
+          <!-- <div class="list-group-item justify-between">
+            <span></span>
+            <span></span>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

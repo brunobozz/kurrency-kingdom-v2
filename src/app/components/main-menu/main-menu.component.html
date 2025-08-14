@@ -1,0 +1,20 @@
+<div class="menu" [ngClass]="{ active: opened }">
+  <div class="menu-mobile">
+    <div class="menu-mobile-header">
+      <div></div>
+      <span class="mdi mdi-close fs-2 ms-2 me-2" (click)="closeMenu()"></span>
+    </div>
+    <div class="menu-mobile-content">
+      <div class="links">
+        <a
+          *ngFor="let item of menu"
+          [routerLink]="item.route"
+          (click)="closeMenu()"
+        >
+          <span class="mdi me-2 {{ item.icon }}"></span>
+          <span>{{ item.title }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

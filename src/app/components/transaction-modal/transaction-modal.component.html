@@ -6,9 +6,12 @@
   tabindex="-1"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-sm modal-dialog-centered">
+  <div class="modal-dialog modal-md modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header p-3 border-0 bg-dark">
+      <div
+        class="modal-header p-3 border-0"
+        style="background-color: rgba(0, 0, 0, 0.2)"
+      >
         <h1 class="modal-title fs-5" id="transactionModalLabel">
           <span class="mdi mdi-swap-horizontal me-2"></span>
           <span>Nova Transação</span>
@@ -25,7 +28,21 @@
       <div class="modal-body">
         <form [formGroup]="form" (ngSubmit)="submitForm()">
           <div class="row">
-            <div class="col-12">
+            <div class="col-md-6 col-sm-12">
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="user"
+                  placeholder="Nome"
+                  [ngClass]="{
+                    'is-invalid': validField('user')
+                  }"
+                />
+                <div class="invalid-feedback text-end">Nome obrigatório</div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
               <div class="input-group has-validation mb-3">
                 <button
                   class="btn dropdown-toggle"
@@ -69,7 +86,7 @@
                 <div class="invalid-feedback text-end">Valor obrigatório</div>
               </div>
             </div>
-            <div class="col12">
+            <div class="col-md-6 col-sm-12">
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Cotação</span>
                 <input
@@ -80,7 +97,7 @@
                 />
               </div>
             </div>
-            <div class="col-12">
+            <div class="col-md-6 col-sm-12">
               <div class="input-group mb-3">
                 <button
                   class="btn dropdown-toggle"
@@ -121,6 +138,57 @@
               </div>
             </div>
           </div>
+
+          <div class="mb-4">
+            <h5 class="text-center border-bottom p-2">Resumo da transação</h5>
+            <div class="list-group list-group-flush">
+              <div
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                <span>Moeda Origem</span>
+                <span class="text-capitalize">
+                  {{ form.value.currencyOriginCode }}
+                  {{ form.value.currencyOriginValue }}
+                </span>
+              </div>
+              <div
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                <span>Cotação de conversão</span>
+                <span>x {{ form.value.quote }}</span>
+              </div>
+              <div
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                <span>Moeda Destino</span>
+                <span>
+                  {{ form.value.currencyDestinyCode }}
+                  {{ form.value.currencyDestinyValue }}
+                </span>
+              </div>
+              <div
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                <span>Taxa de Corretagem</span>
+                <span>
+                  {{ form.value.currencyOriginTax }}% =
+                  {{ form.value.currencyDestinyCode }}
+                  {{ form.value.taxValue }}
+                </span>
+              </div>
+              <div
+                class="list-group-item d-flex justify-content-between align-items-center fw-bold"
+                style="background-color: rgba(0, 0, 0, 0.1)"
+              >
+                <span>Valor a receber</span>
+                <span>
+                  {{ form.value.currencyDestinyCode }}
+                  {{ form.value.currencyDestinyValueTaxed }}
+                </span>
+              </div>
+            </div>
+          </div>
+
           <div class="d-flex justify-content-end">
             <button
               type="button"

@@ -37,25 +37,34 @@ export class CurrentQuoteService {
 
   getQuote(currencies: Currency[], from: string | Currency): QuoteItem[] {
     const fromCode = typeof from === 'string' ? from : from.code;
-    const vFrom = this.valueInGold(currencies, fromCode);
+    const fromCoin = currencies.find(c => c.code === fromCode);
+    if (!fromCoin) throw new Error(`Moeda ${fromCode} não encontrada.`);
 
-    return currencies
-      .map<QuoteItem>(to => {
-        const vTo = this.valueInGold(currencies, to.code);
-        const perOneFrom = vFrom / vTo;
-        const inverse = vTo / vFrom;
-        return {
-          name: to.name,
-          code: to.code,
-          price: this.round(perOneFrom),
-          quote: this.round(inverse),
-        };
-      });
+    const amtFrom = Math.max(fromCoin.amount ?? 0, this.MIN_DENOM);
+
+    return currencies.map<QuoteItem>(to => {
+      const amtTo = Math.max(to.amount ?? 0, this.MIN_DENOM);
+
+      // perOneFrom = B por 1 A
+      const perOneFrom = (to.baseValue / fromCoin.baseValue) * (amtTo / amtFrom);
+      const inverse = perOneFrom === 0 ? 0 : 1 / perOneFrom;
+
+      return {
+        name: to.name,
+        code: to.code,
+        price: this.round(perOneFrom), // 1 'from' compra 'price' de 'to'
+        quote: this.round(inverse),    // inverso: 'from' por 1 'to'
+      };
+    });
   }
 
   getGoldForOne(currencies: Currency[], from: string | Currency): number {
     const fromCode = typeof from === 'string' ? from : from.code;
-    const vFrom = this.valueInGold(currencies, fromCode);
-    return this.round(vFrom);
+    const gold = currencies.find(c => c.code === 'Or$');
+    if (!gold) throw new Error('Moeda Or$ não encontrada.');
+    const amtFrom = Math.max(currencies.find(c => c.code === fromCode)?.amount ?? 0, this.MIN_DENOM);
+    const amtGold = Math.max(gold.amount ?? 0, this.MIN_DENOM);
+    const v = (gold.baseValue / (currencies.find(c => c.code === fromCode)!.baseValue)) * (amtGold / amtFrom);
+    return this.round(v);
   }
 }

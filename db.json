@@ -5,14 +5,16 @@
       "code": "Or$",
       "amount": 1000,
       "baseValue": 1,
+      "tax": 0.4,
       "color": "#D49000",
       "id": "5292"
     },
     {
       "name": "tibar",
       "code": "Tb$",
-      "amount": 1000,
+      "amount": 1100,
       "baseValue": 2.5,
+      "tax": 1,
       "color": "#3E7938",
       "id": "7ba9"
     },
@@ -21,6 +23,7 @@
       "code": "Pr$",
       "amount": 1000,
       "baseValue": 1.6,
+      "tax": 0.6,
       "color": "#8C8C8C",
       "id": "f7e4"
     },
@@ -29,218 +32,182 @@
       "code": "Bz$",
       "amount": 1000,
       "baseValue": 2.1,
+      "tax": 0.8,
       "color": "#66452E",
       "id": "5586"
     }
   ],
   "transaction": [
     {
-      "id": "ea46",
-      "user": "bruno",
+      "id": "2646",
+      "user": "Fernando",
       "currencyOrigin": {
         "name": "tibar",
         "code": "Tb$",
-        "value": "48"
+        "value": "100",
+        "tax": 1
       },
       "quote": 0.4,
+      "taxValue": 0.4,
       "currencyDestiny": {
         "name": "ouro",
         "code": "Or$",
-        "value": 19.2
+        "value": 40,
+        "valueTaxed": 39.6
       },
-      "createdAt": "2025-08-14 12:29:35"
+      "createdAt": "2025-08-11 17:50:44"
     },
     {
-      "id": "c6a3",
-      "user": "fernando",
+      "id": "04c5",
+      "user": "Bruno",
       "currencyOrigin": {
         "name": "tibar",
         "code": "Tb$",
-        "value": "50"
+        "value": "100",
+        "tax": 1
       },
-      "quote": 0.4,
+      "quote": 0.35,
+      "taxValue": 0.35,
       "currencyDestiny": {
         "name": "ouro",
         "code": "Or$",
-        "value": 20
+        "value": 34.92,
+        "valueTaxed": 34.57
       },
-      "createdAt": "2025-08-14 12:35:54"
+      "createdAt": "2025-08-11 17:51:22"
     },
     {
-      "id": "9d71",
-      "user": "gabriel",
+      "id": "0b33",
+      "user": "Aline",
       "currencyOrigin": {
         "name": "tibar",
         "code": "Tb$",
-        "value": "80"
+        "value": "50",
+        "tax": 1
       },
-      "quote": 0.4,
+      "quote": 0.31,
+      "taxValue": 0.15,
       "currencyDestiny": {
         "name": "ouro",
         "code": "Or$",
-        "value": 32
+        "value": 15.43,
+        "valueTaxed": 15.28
       },
-      "createdAt": "2025-08-14 12:46:19"
+      "createdAt": "2025-08-12 17:51:52"
     },
     {
-      "id": "8df6",
-      "user": "bruno",
-      "currencyOrigin": {
-        "name": "tibar",
-        "code": "Tb$",
-        "value": "50"
-      },
-      "quote": 0.4,
-      "currencyDestiny": {
-        "name": "ouro",
-        "code": "Or$",
-        "value": 20
-      },
-      "createdAt": "2025-08-11 12:53:06"
-    },
-    {
-      "id": "3591",
-      "user": "alice",
-      "currencyOrigin": {
-        "name": "tibar",
-        "code": "Tb$",
-        "value": "12"
-      },
-      "quote": 0.4,
-      "currencyDestiny": {
-        "name": "ouro",
-        "code": "Or$",
-        "value": 4.8
-      },
-      "createdAt": "2025-08-14 12:53:35"
-    },
-    {
-      "id": "8e2d",
-      "user": "magda",
-      "currencyOrigin": {
-        "name": "tibar",
-        "code": "Tb$",
-        "value": "125"
-      },
-      "quote": 0.4,
-      "currencyDestiny": {
-        "name": "ouro",
-        "code": "Or$",
-        "value": 50
-      },
-      "createdAt": "2025-08-13 12:54:41"
-    },
-    {
-      "id": "b33d",
-      "user": "fernando",
-      "currencyOrigin": {
-        "name": "tibar",
-        "code": "Tb$",
-        "value": "85"
-      },
-      "quote": 0.4,
-      "currencyDestiny": {
-        "name": "ouro",
-        "code": "Or$",
-        "value": 34
-      },
-      "createdAt": "2025-08-12 12:55:12"
-    },
-    {
-      "id": "6be5",
-      "user": "magda",
-      "currencyOrigin": {
-        "name": "tibar",
-        "code": "Tb$",
-        "value": "14"
-      },
-      "quote": 0.4,
-      "currencyDestiny": {
-        "name": "ouro",
-        "code": "Or$",
-        "value": 5.6
-      },
-      "createdAt": "2025-08-11 12:55:21"
-    },
-    {
-      "id": "271f",
-      "user": "bruno",
+      "id": "bfbb",
+      "user": "Aline",
       "currencyOrigin": {
         "name": "ouro",
         "code": "Or$",
-        "value": "41"
+        "value": "300",
+        "tax": 0.4
       },
-      "quote": 2.5,
+      "quote": 3.43,
+      "taxValue": 4.12,
       "currencyDestiny": {
         "name": "tibar",
         "code": "Tb$",
-        "value": 102.5
+        "value": 1029.6,
+        "valueTaxed": 1025.48
       },
-      "createdAt": "2025-08-14 13:43:11"
+      "createdAt": "2025-08-13 17:52:20"
     },
     {
-      "id": "f1b2",
-      "user": "bruno",
+      "id": "4d41",
+      "user": "Aline",
       "currencyOrigin": {
+        "name": "tibar",
+        "code": "Tb$",
+        "value": "50",
+        "tax": 1
+      },
+      "quote": 2.16,
+      "taxValue": 1.08,
+      "currencyDestiny": {
+        "name": "ouro",
+        "code": "Or$",
+        "value": 107.83,
+        "valueTaxed": 106.76
+      },
+      "createdAt": "2025-08-13 17:52:53"
+    },
+    {
+      "id": "a760",
+      "user": "Johnatan",
+      "currencyOrigin": {
+        "name": "tibar",
+        "code": "Tb$",
+        "value": "348",
+        "tax": 1
+      },
+      "quote": 1.61,
+      "taxValue": 5.6,
+      "currencyDestiny": {
+        "name": "ouro",
+        "code": "Or$",
+        "value": 559.7,
+        "valueTaxed": 554.1
+      },
+      "createdAt": "2025-08-13 17:55:05"
+    },
+    {
+      "id": "ebee",
+      "user": "Johnatan",
+      "currencyOrigin": {
+        "name": "ouro",
+        "code": "Or$",
+        "value": "100",
+        "tax": 0.4
+      },
+      "quote": 2.91,
+      "taxValue": 1.16,
+      "currencyDestiny": {
         "name": "prata",
         "code": "Pr$",
-        "value": "15"
+        "value": 291.07,
+        "valueTaxed": 289.91
       },
-      "quote": 1.56,
-      "currencyDestiny": {
-        "name": "tibar",
-        "code": "Tb$",
-        "value": 23.4375
-      },
-      "createdAt": "2025-08-14 13:43:22"
+      "createdAt": "2025-08-14 17:55:23"
     },
     {
-      "id": "dba0",
-      "user": "bruno",
+      "id": "a786",
+      "user": "Alex",
       "currencyOrigin": {
-        "name": "tibar",
-        "code": "Tb$",
-        "value": "54"
-      },
-      "quote": 0.84,
-      "currencyDestiny": {
         "name": "bronze",
         "code": "Bz$",
-        "value": 45.36
+        "value": "100",
+        "tax": 0.8
       },
-      "createdAt": "2025-08-14 13:43:33"
-    },
-    {
-      "id": "b9f9",
-      "user": "bruno",
-      "currencyOrigin": {
-        "name": "tibar",
-        "code": "Tb$",
-        "value": "45"
-      },
-      "quote": 0.84,
-      "currencyDestiny": {
-        "name": "bronze",
-        "code": "Bz$",
-        "value": 37.8
-      },
-      "createdAt": "2025-08-14 13:45:47"
-    },
-    {
-      "id": "5318",
-      "user": "bruno",
-      "currencyOrigin": {
-        "name": "prata",
-        "code": "Pr$",
-        "value": "78"
-      },
-      "quote": 0.625,
+      "quote": 0.31,
+      "taxValue": 0.25,
       "currencyDestiny": {
         "name": "ouro",
         "code": "Or$",
-        "value": 48.75
+        "value": 30.94,
+        "valueTaxed": 30.69
       },
-      "createdAt": "2025-08-14 15:21:19"
+      "createdAt": "2025-08-14 17:56:31"
+    },
+    {
+      "id": "f76f",
+      "user": "Bruno",
+      "currencyOrigin": {
+        "name": "tibar",
+        "code": "Tb$",
+        "value": "100",
+        "tax": 1
+      },
+      "quote": 0.4,
+      "taxValue": 0.4,
+      "currencyDestiny": {
+        "name": "ouro",
+        "code": "Or$",
+        "value": 40,
+        "valueTaxed": 39.6
+      },
+      "createdAt": "2025-08-14 18:00:14"
     }
   ]
 }

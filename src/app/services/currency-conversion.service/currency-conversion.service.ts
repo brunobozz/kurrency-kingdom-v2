@@ -10,43 +10,52 @@ export interface Currency {
 
 @Injectable({ providedIn: 'root' })
 export class CurrencyConversionService {
-  private readonly GOLD_CODE = 'Or$';
   private readonly MIN_DENOM = 1e-9;
-
-  private valueInGold(currencies: Currency[], code: string): number {
-    const gold = currencies.find(c => c.code === this.GOLD_CODE);
-    const coin = currencies.find(c => c.code === code);
-    if (!gold) throw new Error('Moeda base ouro (Or$) não encontrada.');
-    if (!coin) throw new Error(`Moeda ${code} não encontrada.`);
-
-    const denom = Math.max(coin.amount ?? 0, this.MIN_DENOM);
-    return coin.baseValue * (gold.amount / denom);
-  }
 
   public rate(currencies: Currency[], fromCode: string, toCode: string): number {
     if (fromCode === toCode) return 1;
-    const vFrom = this.valueInGold(currencies, fromCode);
-    const vTo = this.valueInGold(currencies, toCode);
-    return vTo / vFrom;
+
+    const from = currencies.find(c => c.code === fromCode);
+    const to = currencies.find(c => c.code === toCode);
+
+    if (!from) throw new Error(`Moeda ${fromCode} não encontrada.`);
+    if (!to) throw new Error(`Moeda ${toCode} não encontrada.`);
+
+    const amtFrom = Math.max(from.amount ?? 0, this.MIN_DENOM);
+    const amtTo = Math.max(to.amount ?? 0, this.MIN_DENOM);
+
+    // rate = (baseTo/baseFrom) * (amountTo/amountFrom)
+    return (to.baseValue / from.baseValue) * (amtTo / amtFrom);
   }
+
 
   public convert(
     currencies: Currency[],
     fromCode: string,
     toCode: string,
     amountFrom: number,
-    roundDigits = 4
+    roundDigits = 2
   ): any {
     if (!Number.isFinite(amountFrom) || amountFrom <= 0) return 0;
+
     const r = this.rate(currencies, fromCode, toCode);
     const out = amountFrom * r;
+
+    const coinOrigin: any = currencies.find(c => c.code === fromCode);
+    const taxPercent = coinOrigin?.tax ?? 0;
+
+    const taxValue = (out * taxPercent) / 100;
+    const valueTaxed = out - taxValue;
+
     return {
       value: this.round(out, roundDigits),
-      rate: this.round(r, roundDigits)
+      rate: this.round(r, roundDigits),
+      taxValue: this.round(taxValue, roundDigits),
+      valueTaxed: this.round(valueTaxed, roundDigits)
     };
   }
 
-  private round(n: number, digits = 4): number {
+  private round(n: number, digits = 2): number {
     const p = Math.pow(10, digits);
     return Math.round(n * p) / p;
   }

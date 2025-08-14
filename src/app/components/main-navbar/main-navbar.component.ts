@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.component';
 
 @Component({
@@ -13,5 +13,9 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
   styleUrl: './main-navbar.component.scss'
 })
 export class MainNavbarComponent {
+  @Output() callMenu = new EventEmitter();
 
+  public openMenu() {
+    this.callMenu.emit();
+  }
 }

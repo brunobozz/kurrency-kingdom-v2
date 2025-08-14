@@ -9,6 +9,7 @@ import { TransactionsHistoryListComponent } from './components/transactions-hist
 import { TransactionModalComponent } from '../../components/transaction-modal/transaction-modal.component';
 import { TransactionsHistoryHeaderComponent } from './components/transactions-history-header/transactions-history-header.component';
 import { ListPaginatorComponent } from '../../components/list-paginator/list-paginator.component';
+import { TransactionDetailsComponent } from '../../components/transaction-details/transaction-details.component';
 
 @Component({
   selector: 'app-transactions-history',
@@ -22,7 +23,8 @@ import { ListPaginatorComponent } from '../../components/list-paginator/list-pag
     TransactionsHistoryListComponent,
     TransactionModalComponent,
     TransactionsHistoryHeaderComponent,
-    ListPaginatorComponent
+    ListPaginatorComponent,
+    TransactionDetailsComponent
   ],
   templateUrl: './transactions-history.component.html',
   styleUrl: './transactions-history.component.scss'

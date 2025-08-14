@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../../services/api-service/api.service';
 import { CurrencyConversionService } from '../../services/currency-conversion.service/currency-conversion.service';
+import { catchError, forkJoin, map, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-transaction-modal',
@@ -31,13 +32,16 @@ export class TransactionModalComponent implements OnInit {
       currencyOriginName: ['', [Validators.required]],
       currencyOriginCode: ['', [Validators.required]],
       currencyOriginColor: ['', [Validators.required]],
-      currencyOriginValue: [0, [Validators.required, Validators.minLength(1)]],
+      currencyOriginValue: [null, [Validators.required, Validators.minLength(1)]],
+      currencyOriginTax: [0, [Validators.required]],
       currencyDestinyName: ['', [Validators.required]],
       currencyDestinyCode: ['', [Validators.required]],
       currencyDestinyColor: ['', [Validators.required]],
       currencyDestinyValue: [0.00, [Validators.required]],
+      currencyDestinyValueTaxed: [0.00, [Validators.required]],
       quote: [0, [Validators.required]],
-      user: ['bruno', [Validators.required]],
+      taxValue: [0, [Validators.required]],
+      user: ['', [Validators.required]],
     })
   }
 
@@ -60,6 +64,7 @@ export class TransactionModalComponent implements OnInit {
       'currencyOriginName': currency.name,
       'currencyOriginCode': currency.code,
       'currencyOriginColor': currency.color,
+      'currencyOriginTax': currency.tax,
     })
   }
 
@@ -81,6 +86,8 @@ export class TransactionModalComponent implements OnInit {
     );
     this.form.patchValue({
       'currencyDestinyValue': converted.value,
+      'currencyDestinyValueTaxed': converted.valueTaxed,
+      'taxValue': converted.taxValue,
       'quote': converted.rate,
     });
   }
@@ -109,37 +116,79 @@ export class TransactionModalComponent implements OnInit {
       }).replace('T', ' ');
 
       let body = {
-        "user": "bruno",
+        "user": this.form.value.user,
         "currencyOrigin": {
           "name": this.form.value.currencyOriginName,
           "code": this.form.value.currencyOriginCode,
-          "value": this.form.value.currencyOriginValue
+          "value": this.form.value.currencyOriginValue,
+          "tax": this.form.value.currencyOriginTax
         },
         "quote": this.form.value.quote,
+        'taxValue': this.form.value.taxValue,
         "currencyDestiny": {
           "name": this.form.value.currencyDestinyName,
           "code": this.form.value.currencyDestinyCode,
-          "value": this.form.value.currencyDestinyValue
+          "value": this.form.value.currencyDestinyValue,
+          "valueTaxed": this.form.value.currencyDestinyValueTaxed,
         },
         "createdAt": createdAt
       };
-      this.updateForm(body);
+      this.updateBankThenPost(body);
     } else {
       this.toastr.error('Seu formulário está incompleto!', 'Transação negada!');
     }
   }
 
-  public updateForm(body: any) {
-    console.log(body);
+  private updateBankThenPost(body: any) {
+    const originCode = body.currencyOrigin.code as string;
+    const originDelta = Number(body.currencyOrigin.value) || 0; // soma
+    const destCode = body.currencyDestiny.code as string;
+    const destDelta = Number(body.currencyDestiny.valueTaxed) || 0; // subtrai
 
-    this.apiService.postData('transaction', body).subscribe((res: any) => {
-      const mensagem = `
-      ${this.form.value.currencyOriginCode}${this.form.value.currencyOriginValue}
-      ${this.form.value.currencyDestinyCode}${this.form.value.currencyDestinyValue}
+    this.apiService.getData('currency').pipe(
+      map((list: any[]) => {
+        const origin = list.find(c => c.code === originCode);
+        const dest = list.find(c => c.code === destCode);
+
+        if (!origin) throw new Error(`Moeda origem ${originCode} não encontrada.`);
+        if (!dest) throw new Error(`Moeda destino ${destCode} não encontrada.`);
+
+        if (dest.amount < destDelta) {
+          throw new Error(`Saldo insuficiente de ${dest.code} no banco.`);
+        }
+
+        const updatedOrigin = { ...origin, amount: origin.amount + originDelta };
+        const updatedDest = { ...dest, amount: dest.amount - destDelta };
+
+        return { updatedOrigin, updatedDest };
+      }),
+      switchMap(({ updatedOrigin, updatedDest }) =>
+        forkJoin([
+          this.apiService.updateData(`currency/${updatedOrigin.id}`, updatedOrigin),
+          // this.apiService.updateData(`currency/${updatedDest.id}`, updatedDest),
+        ])
+      ),
+      tap(() => {
+        this.toastr.info('Banco atualizado.', 'OK');
+      }),
+      switchMap(() => this.apiService.postData('transaction', body)),
+      tap(() => {
+        const mensagem = `
+${this.form.value.currencyOriginCode}${this.form.value.currencyOriginValue}
+${this.form.value.currencyDestinyCode}${this.form.value.currencyDestinyValue}
       `;
-      this.toastr.success(mensagem, 'Transação realizada!');
-      this.closeModal.nativeElement.click();
-      this.refreshList.emit();
-    })
+        this.toastr.success(mensagem, 'Transação realizada!');
+        this.closeModal?.nativeElement?.click();
+        this.refreshList?.emit();
+      }),
+      catchError((err) => {
+        this.toastr.error(err?.message || 'Falha ao atualizar o banco.', 'Erro');
+        return of(null);
+      })
+    ).subscribe();
   }
+
+
+
+
 }
