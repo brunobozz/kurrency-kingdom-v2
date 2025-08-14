@@ -10,7 +10,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './main-menu.component.scss'
 })
 export class MainMenuComponent {
-  public opened: boolean = true;
+  public opened: boolean = false;
   public menu: any = [
     {
       title: "Home",
