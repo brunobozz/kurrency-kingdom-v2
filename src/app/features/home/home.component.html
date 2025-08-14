@@ -1,0 +1,18 @@
+<app-transaction-modal
+  (refreshList)="lastTransactions.getLastTransactions()"
+></app-transaction-modal>
+<div class="container pt-4">
+  <app-carousel></app-carousel>
+  <div class="mt-4">
+    <span class="fs-4">
+      Se você é um anão, quer participar do
+      <b>Mercado de Pulgas dos Mil Saberes</b> e só possui "Tibar", nosso app
+      vai te ajudar! Aqui você pode ficar por dentro da cotação do Ouro Real,
+      fazer simulações de troca e também efetivar suas transações online.
+    </span>
+  </div>
+  <div class="mt-4">
+    <app-current-quote></app-current-quote>
+    <app-last-transactions #lastTransactions></app-last-transactions>
+  </div>
+</div>

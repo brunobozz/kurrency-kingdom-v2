@@ -1,0 +1,59 @@
+<h5>
+  <span class="mdi mdi-filter me-2"></span>
+  <span>Filtros:</span>
+</h5>
+<div class="row">
+  <div class="col-lg-3 col-md-6">
+    <div class="mb-3">
+      <input
+        [(ngModel)]="filter.text"
+        type="text"
+        class="form-control"
+        placeholder="Usuário ou ID"
+        (keyup)="filterList()"
+      />
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="mb-3">
+      <input
+        [(ngModel)]="filter.date"
+        type="date"
+        class="form-control"
+        placeholder="Data dd/mm"
+        (keyup)="filterList()"
+        (change)="filterList()"
+      />
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="mb-3">
+      <select
+        [(ngModel)]="filter.currencyOrigin"
+        class="form-select"
+        (change)="filterList()"
+      >
+        <option [ngValue]="null" selected>Moeda Origem</option>
+        <option value="Or$">Ouro</option>
+        <option value="Tb$">Tibar</option>
+        <option value="Pr$">Prata</option>
+        <option value="Bz$">Bronze</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="mb-3">
+      <select
+        [(ngModel)]="filter.currencyDestiny"
+        class="form-select"
+        (change)="filterList()"
+      >
+        <option [ngValue]="null" selected>Moeda Destino</option>
+        <option value="Or$">Ouro</option>
+        <option value="Tb$">Tibar</option>
+        <option value="Pr$">Prata</option>
+        <option value="Bz$">Bronze</option>
+      </select>
+    </div>
+  </div>
+</div>

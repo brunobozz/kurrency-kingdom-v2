@@ -1,0 +1,79 @@
+$min-contrast-ratio: 0.9 !default;
+
+//CUSTOM COLORS
+$green-1: #36935b !default;
+$green-2: #286c44 !default;
+$gold-1: #cfa21a !default;
+$gold-2: #dba905 !default;
+$blue-gray-1: #383d5a !default;
+$blue-gray-2: #373140 !default;
+
+//DEFAULT COLOR SYSTEM
+$white: #ffffff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #999999 !default;
+$gray-600: #7a8288 !default;
+$gray-700: #52575c !default;
+$gray-800: #3a3f44 !default;
+$gray-900: #272b30 !default;
+$gray-1000: #111111 !default;
+$black: #000000 !default;
+$blue: #609efc !default;
+$indigo: #6610f2 !default;
+$purple: #a23de6 !default;
+$pink: #e83e8c !default;
+$red: #ff3b3b !default;
+$orange: #ee9349 !default;
+$yellow: #d3e018 !default;
+$green: #57ce57 !default;
+$teal: #31ce60 !default;
+$cyan: #4375ff !default;
+
+$primary: $green-1;
+$secondary: $gold-1;
+$success: $green;
+$info: $blue;
+$warning: $orange;
+$danger: $red;
+
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "danger": $danger,
+  "info": $info,
+  "warning": $warning,
+);
+
+$custom-colors: (
+  "green-1": $green-1,
+  "green-2": $green-2,
+  "gold-1": $gold-1,
+  "gold-2": $gold-2,
+  "blue-gray-1": $blue-gray-1,
+  "blue-gray-2": $blue-gray-2,
+
+  "gray-100": $gray-100,
+  "gray-200": $gray-200,
+  "gray-300": $gray-300,
+  "gray-400": $gray-400,
+  "gray-500": $gray-500,
+  "gray-600": $gray-600,
+  "gray-700": $gray-700,
+  "gray-800": $gray-800,
+  "gray-900": $gray-900,
+  "gray-1000": $gray-1000,
+  "white": $white,
+  "black": $black,
+);
+
+$modal-backdrop-opacity: 0.2;
+
+//Forms
+$input-bg: rgba(0, 0, 0, 0.05) !default;
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+@import "./bootstrap/scss/bootstrap.scss";

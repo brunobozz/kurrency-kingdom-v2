@@ -1,0 +1,119 @@
+@import "./variables";
+
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.font-fredoka {
+  font-family: "Oswald", sans-serif;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+select,
+select:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active {
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+}
+
+//TOASTR
+.toast-top-right {
+  position: fixed !important;
+
+  .ngx-toastr {
+    box-shadow: none !important;
+    margin-top: 10px !important;
+  }
+}
+
+//CARD
+// .card {
+//   overflow: hidden;
+// }
+
+//Scrollbar
+::-webkit-scrollbar {
+  width: 10px;
+  transition: all 0.2s ease-in-out;
+}
+::-webkit-scrollbar:hover {
+  width: 20px;
+}
+::-webkit-scrollbar-track {
+  background: #333;
+}
+::-webkit-scrollbar-thumb {
+  background: darken($primary, 30%);
+  transition: all 0.2s ease-in-out;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: lighten($primary, 10%);
+}
+
+.scroll-y {
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+//Scrollbar
+.scroll-y::-webkit-scrollbar {
+  width: 2px;
+  height: 4px;
+}
+.scroll-y::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scroll-y::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 2px;
+}
+.scroll-y:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
+.scroll-y:hover::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+//Table
+.tableRadius {
+  border-radius: 10px;
+  border-radius: 10px;
+}
+.table-responsive {
+  border-radius: 10px;
+  border-radius: 10px;
+}
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.table-striped > tbody > tr:nth-child(even) > td,
+.table-striped > tbody > tr:nth-child(even) > th,
+.table > thead > tr > th {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 768px) {
+  //Scrollbar
+  ::-webkit-scrollbar {
+    width: 5px;
+    transition: all 0.2s ease-in-out;
+  }
+}

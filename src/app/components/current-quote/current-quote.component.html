@@ -1,0 +1,95 @@
+<div *ngIf="currencyList" class="mb-4">
+  <div class="pt-3 pb-3">
+    <div class="fw-bold fs-5 d-flex justify-content-between align-items-center">
+      <div>
+        <span class="mdi mdi-gold me-2"></span>
+        <span class="">Cotação Atual</span>
+      </div>
+      <button
+        type="button"
+        class="btn btn-sm btn-secondary"
+        data-bs-toggle="modal"
+        data-bs-target="#transactionModal"
+      >
+        <span class="mdi mdi-swap-horizontal me-1"></span>
+        <span>Nova Transação</span>
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-6">
+        <app-currency-selector
+          [list]="currencyList"
+          (currencyChange)="onCurrencySelected($event)"
+        ></app-currency-selector>
+        <div *ngIf="currentQuote" class="mt-3 list-group">
+          <div
+            class="list-group-item text-center"
+            style="background-color: rgba(0, 0, 0, 0.1)"
+          >
+            Preços
+          </div>
+          <div
+            *ngFor="let item of currentQuote"
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <div class="d-flex justify-content-between align-items-center">
+              <img
+                src="imgs/currency-{{ item.name }}.png"
+                style="height: 18px"
+                class="me-2"
+              />
+              <span class="text-capitalize">1x {{ item.name }}</span>
+            </div>
+            <span
+              >{{ selectedCurrency.code }}
+              {{ item.price | number : "1.2-2" }}</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="input-group input-group-lg mb-3 mt-3 mt-lg-0">
+          <span
+            *ngIf="selectedCurrency"
+            class="input-group-text"
+            style="height: 50px"
+          >
+            <img
+              src="imgs/currency-{{ selectedCurrency.name }}.png"
+              style="height: 18px"
+              class="me-2"
+            />
+            <span>{{ selectedCurrency.code }}</span>
+          </span>
+          <input [(ngModel)]="value" class="form-control text-end" />
+        </div>
+        <div *ngIf="currentQuote" class="mt-2 list-group">
+          <div
+            class="list-group-item text-center"
+            style="background-color: rgba(0, 0, 0, 0.1)"
+          >
+            Simulação
+          </div>
+          <div
+            *ngFor="let item of currentQuote"
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <div class="d-flex justify-content-between align-items-center">
+              <img
+                src="imgs/currency-{{ item.name }}.png"
+                style="height: 18px"
+                class="me-2"
+                [alt]="item.name"
+              />
+              <span class="text-capitalize">{{ item.name }}</span>
+            </div>
+            <span>{{ item.code }} {{ item.quote * value | number : "1.2-2" }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+.currency-chart {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  height: 200px;
+}
+
+.bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+}
+
+.bar {
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  transition: height 0.3s ease;
+}
+
+.label {
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 14px;
+}

@@ -1,0 +1,55 @@
+<div class="card mb-4">
+  <div class="card-header">
+    <div class="fw-bold fs-5 d-flex justify-content-between align-items-center">
+      <div>
+        <span class="mdi mdi-format-list-bulleted-triangle me-2"></span>
+        <span>Últimas Transações</span>
+      </div>
+      <button class="btn btn-sm btn-dark" routerLink="transactions-history">
+        <span class="mdi mdi-history me-1"></span>
+        <span>Histórico</span>
+      </button>
+    </div>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li
+      *ngFor="let item of list.slice(0, 5)"
+      class="list-group-item d-flex justify-content-between align-items-center"
+    >
+      <span class="text-capitalize">
+        <b>{{ item.createdAt | date : "dd/MM" }}</b>
+        {{ item.createdAt | date : "hh:mm" }}h -
+        {{ item.user }}
+      </span>
+
+      <div class="d-flex justify-content-between align-items-center">
+        <img
+          src="imgs/currency-{{ item.currencyOrigin.name }}.png"
+          style="height: 14px"
+          class="me-2"
+        />
+        <span>
+          <b>{{ item.currencyOrigin.code }}</b>
+          {{ item.currencyDestiny.value | number : "1.2-2" }}</span
+        >
+        <span class="mdi mdi-arrow-right text-primary ms-3 me-3"></span>
+        <img
+          src="imgs/currency-{{ item.currencyDestiny.name }}.png"
+          style="height: 14px"
+          class="me-2"
+        />
+        <span>
+          <b>{{ item.currencyDestiny.code }}</b>
+          {{ item.currencyDestiny.value | number : "1.2-2" }}
+        </span>
+      </div>
+    </li>
+
+    <li
+      *ngIf="list.length == 0"
+      class="list-group-item d-flex justify-content-center align-items-center p-5"
+    >
+      <span class="text-secondary fs-5">Nenhuma transação encontrada</span>
+    </li>
+  </ul>
+</div>

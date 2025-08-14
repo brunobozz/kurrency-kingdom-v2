@@ -1,0 +1,36 @@
+<div class="dropdown d-grid">
+  <button
+    *ngIf="selectedCurrency"
+    class="btn btn-lg btn-dark dropdown-toggle"
+    [style.background-color]="selectedCurrency.color"
+    type="button"
+    id="currencyDd"
+    data-bs-toggle="dropdown"
+  >
+    <img
+      src="imgs/currency-{{ selectedCurrency.name }}.png"
+      style="height: 28px"
+      class="me-2"
+      [alt]="selectedCurrency.name"
+    />
+    <span class="text-capitalize"
+      ><b>{{ selectedCurrency.code }}</b> - {{ selectedCurrency.name }}</span
+    >
+  </button>
+
+  <ul class="dropdown-menu" style="width: 100%" aria-labelledby="currencyDd">
+    <li
+      *ngFor="let item of list"
+      class="dropdown-item text-capitalize cursor-pointer"
+      (click)="changeCurrency(item)"
+    >
+      <img
+        src="imgs/currency-{{ item.name }}.png"
+        style="height: 28px"
+        class="me-2"
+        [alt]="selectedCurrency.name"
+      />
+      <span><b>{{ item.code }}</b> - {{ item.name }}</span>
+    </li>
+  </ul>
+</div>

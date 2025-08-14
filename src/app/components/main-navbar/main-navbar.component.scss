@@ -1,0 +1,27 @@
+.navbar {
+  .logo {
+    img {
+      height: 40px;
+    }
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .navbar {
+    .logo {
+      img {
+        height: 32px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    .logo {
+      img {
+        height: 28px;
+      }
+    }
+  }
+}

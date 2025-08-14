@@ -1,0 +1,19 @@
+<app-transaction-modal
+  (refreshList)="getTransactions()"
+></app-transaction-modal>
+<div class="container">
+  <app-transactions-history-header></app-transactions-history-header>
+  <app-transactions-history-filter
+    (sendFilter)="filterList($event)"
+  ></app-transactions-history-filter>
+  <app-transactions-history-list
+    [list]="pagedList"
+  ></app-transactions-history-list>
+  <div class="d-flex justify-content-end mt-3">
+    <app-list-paginator
+      [pages]="totalPages"
+      [active]="page"
+      (onPageChange)="changePage($event)"
+    ></app-list-paginator>
+  </div>
+</div>
