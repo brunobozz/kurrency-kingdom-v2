@@ -21,6 +21,16 @@ export class MainMenuComponent {
       title: "Histórico de Transaçãoes",
       icon: "mdi-history",
       route: '/transactions-history'
+    },
+    {
+      title: "Usuários",
+      icon: "mdi-account-group",
+      route: '/user'
+    },
+    {
+      title: "Moedas",
+      icon: "mdi-currency-usd",
+      route: '/currency'
     }
   ]
 

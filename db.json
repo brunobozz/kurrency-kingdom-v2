@@ -1,40 +1,142 @@
 {
+  "user": [
+    {
+      "name": "bruno",
+      "currency": [
+        {
+          "name": "ouro",
+          "code": "Or$",
+          "amount": 0
+        },
+        {
+          "name": "tibar",
+          "code": "Tb$",
+          "amount": 10
+        },
+        {
+          "name": "prata",
+          "code": "Pr$",
+          "amount": 0
+        },
+        {
+          "name": "bronze",
+          "code": "Bz$",
+          "amount": 0
+        }
+      ]
+    },
+    {
+      "name": "alex",
+      "currency": [
+        {
+          "name": "ouro",
+          "code": "Or$",
+          "amount": 0
+        },
+        {
+          "name": "tibar",
+          "code": "Tb$",
+          "amount": 10
+        },
+        {
+          "name": "prata",
+          "code": "Pr$",
+          "amount": 0
+        },
+        {
+          "name": "bronze",
+          "code": "Bz$",
+          "amount": 0
+        }
+      ]
+    },
+    {
+      "name": "lucas",
+      "currency": [
+        {
+          "name": "ouro",
+          "code": "Or$",
+          "amount": 0
+        },
+        {
+          "name": "tibar",
+          "code": "Tb$",
+          "amount": 10
+        },
+        {
+          "name": "prata",
+          "code": "Pr$",
+          "amount": 0
+        },
+        {
+          "name": "bronze",
+          "code": "Bz$",
+          "amount": 0
+        }
+      ]
+    },
+    {
+      "name": "samara",
+      "currency": [
+        {
+          "name": "ouro",
+          "code": "Or$",
+          "amount": 0
+        },
+        {
+          "name": "tibar",
+          "code": "Tb$",
+          "amount": 10
+        },
+        {
+          "name": "prata",
+          "code": "Pr$",
+          "amount": 0
+        },
+        {
+          "name": "bronze",
+          "code": "Bz$",
+          "amount": 0
+        }
+      ]
+    }
+  ],
   "currency": [
     {
+      "id": "5292",
       "name": "ouro",
       "code": "Or$",
       "amount": 1000,
       "baseValue": 1,
       "tax": 0.4,
-      "color": "#D49000",
-      "id": "5292"
+      "color": "#D49000"
     },
     {
+      "id": "7ba9",
       "name": "tibar",
       "code": "Tb$",
-      "amount": 1100,
+      "amount": 1010,
       "baseValue": 2.5,
       "tax": 1,
-      "color": "#3E7938",
-      "id": "7ba9"
+      "color": "#3E7938"
     },
     {
+      "id": "f7e4",
       "name": "prata",
       "code": "Pr$",
       "amount": 1000,
       "baseValue": 1.6,
       "tax": 0.6,
-      "color": "#8C8C8C",
-      "id": "f7e4"
+      "color": "#8C8C8C"
     },
     {
+      "id": "5586",
       "name": "bronze",
       "code": "Bz$",
       "amount": 1000,
       "baseValue": 2.1,
       "tax": 0.8,
-      "color": "#66452E",
-      "id": "5586"
+      "color": "#66452E"
     }
   ],
   "transaction": [
@@ -208,6 +310,25 @@
         "valueTaxed": 39.6
       },
       "createdAt": "2025-08-14 18:00:14"
+    },
+    {
+      "id": "ad32",
+      "user": "Cassiano",
+      "currencyOrigin": {
+        "name": "tibar",
+        "code": "Tb$",
+        "value": "10",
+        "tax": 1
+      },
+      "quote": 0.4,
+      "taxValue": 0.04,
+      "currencyDestiny": {
+        "name": "ouro",
+        "code": "Or$",
+        "value": 4,
+        "valueTaxed": 3.96
+      },
+      "createdAt": "2025-08-15 12:08:08"
     }
   ]
 }

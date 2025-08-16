@@ -1,0 +1,57 @@
+<div class="card table-responsive tableRadius border-bottom-0">
+  <table class="table table-striped align-middle mb-0">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col" class="text-center">
+          <div class="d-flex justify-content-center align-items-center">
+            <img
+              src="imgs/currency-ouro.png"
+              style="height: 16px"
+              class="me-1"
+            />
+            <span>Ouro</span>
+          </div>
+        </th>
+        <th scope="col" class="text-center">
+          <div class="d-flex justify-content-center align-items-center">
+            <img
+              src="imgs/currency-tibar.png"
+              style="height: 16px"
+              class="me-1"
+            />
+            <span>Tibar</span>
+          </div>
+        </th>
+        <th scope="col" class="text-center">
+          <div class="d-flex justify-content-center align-items-center">
+            <img
+              src="imgs/currency-prata.png"
+              style="height: 16px"
+              class="me-1"
+            />
+            <span>Prata</span>
+          </div>
+        </th>
+        <th scope="col" class="text-center">
+          <div class="d-flex justify-content-center align-items-center">
+            <img
+              src="imgs/currency-bronze.png"
+              style="height: 16px"
+              class="me-1"
+            />
+            <span>Bronze</span>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of list">
+        <td scope="row" class="text-capitalize">{{ item.name }}</td>
+        <td *ngFor="let currency of item.currency" class="text-center">
+          {{ currency.amount | number : "1.2-2" }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

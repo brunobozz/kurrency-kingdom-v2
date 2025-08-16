@@ -44,14 +44,17 @@
             </div>
             <span
               >{{ selectedCurrency.code }}
-              {{ item.price | number : "1.2-2" }}</span
+              {{ item.quote | number : "1.2-2" }}</span
             >
           </div>
         </div>
       </div>
 
       <div class="col-lg-6">
-        <div class="input-group input-group-lg mb-3 mt-3 mt-lg-0">
+        <div
+          *ngIf="selectedCurrency"
+          class="input-group input-group-lg mb-3 mt-3 mt-lg-0"
+        >
           <span
             *ngIf="selectedCurrency"
             class="input-group-text"
@@ -86,7 +89,9 @@
               />
               <span class="text-capitalize">{{ item.name }}</span>
             </div>
-            <span>{{ item.code }} {{ item.quote * value | number : "1.2-2" }}</span>
+            <span
+              >{{ item.code }} {{ item.price * value | number : "1.2-2" }}</span
+            >
           </div>
         </div>
       </div>

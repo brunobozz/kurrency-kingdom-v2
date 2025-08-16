@@ -52,6 +52,7 @@
                   aria-expanded="false"
                 >
                   <img
+                    *ngIf="form.value.currencyOriginName"
                     src="imgs/currency-{{ form.value.currencyOriginName }}.png"
                     style="height: 18px"
                     class="me-2"
@@ -60,7 +61,7 @@
                     <b>{{ form.value.currencyOriginName }}</b>
                   </span>
                 </button>
-                <ul class="dropdown-menu">
+                <ul *ngIf="currencyList" class="dropdown-menu">
                   <li
                     *ngFor="let item of currencyList"
                     class="dropdown-item text-capitalize"
@@ -107,6 +108,7 @@
                   aria-expanded="false"
                 >
                   <img
+                    *ngIf="form.value.currencyDestinyName"
                     src="imgs/currency-{{ form.value.currencyDestinyName }}.png"
                     style="height: 18px"
                     class="me-2"
@@ -115,7 +117,7 @@
                     <b>{{ form.value.currencyDestinyName }}</b>
                   </span>
                 </button>
-                <ul class="dropdown-menu">
+                <ul *ngIf="currencyList" class="dropdown-menu">
                   <li
                     *ngFor="let item of currencyList"
                     class="dropdown-item text-capitalize"
