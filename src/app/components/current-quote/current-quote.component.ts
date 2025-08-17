@@ -41,9 +41,6 @@ export class CurrentQuoteComponent implements OnInit {
 
   public onCurrencySelected(currency: any) {
     this.selectedCurrency = currency;
-
-    console.log(this.selectedCurrency);
-
     this.apiKingdom.getData('currencies').pipe(
       switchMap((list: any[]) =>
         forkJoin(
@@ -67,7 +64,6 @@ export class CurrentQuoteComponent implements OnInit {
       )
     ).subscribe((quotes) => {
       this.currentQuote = quotes;
-      console.log(this.currentQuote)
     });
   }
 
