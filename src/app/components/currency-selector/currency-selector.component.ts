@@ -16,7 +16,7 @@ export class CurrencySelectorComponent implements OnChanges {
 
   ngOnChanges(): void {
     if (this.list && !this.selectedCurrency) {
-      this.changeCurrency(this.list[1]);
+      this.changeCurrency(this.list.find((item: any) => { return item.code == 'Tb' }));
     }
   }
 

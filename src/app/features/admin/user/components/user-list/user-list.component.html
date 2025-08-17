@@ -6,77 +6,48 @@
         <th scope="col">Email</th>
         <th scope="col" class="text-center">Admin</th>
         <th scope="col" class="text-center">
-          <div class="d-flex justify-content-center align-items-center">
-            <img
-              src="imgs/currency-ouro.png"
-              style="height: 16px"
-              class="me-1"
-            />
-          </div>
+          <img src="imgs/currency-ouro.png" style="height: 16px" />
         </th>
         <th scope="col" class="text-center">
-          <div class="d-flex justify-content-center align-items-center">
-            <img
-              src="imgs/currency-prata.png"
-              style="height: 16px"
-              class="me-1"
-            />
-          </div>
+          <img src="imgs/currency-prata.png" style="height: 16px" />
         </th>
         <th scope="col" class="text-center">
-          <div class="d-flex justify-content-center align-items-center">
-            <img
-              src="imgs/currency-bronze.png"
-              style="height: 16px"
-              class="me-1"
-            />
-          </div>
+          <img src="imgs/currency-bronze.png" style="height: 16px" />
         </th>
         <th scope="col" class="text-center">
-          <div class="d-flex justify-content-center align-items-center">
-            <img
-              src="imgs/currency-tibar.png"
-              style="height: 16px"
-              class="me-1"
-            />
-          </div>
+          <img src="imgs/currency-tibar.png" style="height: 16px" />
         </th>
         <th scope="col" class="text-end">Ações</th>
       </tr>
     </thead>
     <tbody *ngIf="!loading">
-      <ng-container *ngFor="let item of list">
-        <tr *ngIf="!item.isSystem">
-          <td scope="row" class="text-capitalize">{{ item.name }}</td>
-          <td scope="row">{{ item.email }}</td>
-          <td scope="row" class="text-center">
-            <span
-              *ngIf="item.isAdmin"
-              class="mdi mdi-check text-primary"
-            ></span>
-          </td>
-          <td
-            *ngFor="let balance of item.balances"
-            scope="row"
-            class="text-center"
-          >
-            {{ balance.amount }}
-          </td>
-          <td scope="row" class="text-end">
-            <div class="d-flex justify-content-end">
-              <!-- <button class="btn btn-sm text-info ms-2">
+      <tr *ngFor="let item of list">
+        <td scope="row" class="text-capitalize">{{ item.name }}</td>
+        <td scope="row">{{ item.email }}</td>
+        <td scope="row" class="text-center">
+          <span *ngIf="item.isAdmin" class="mdi mdi-check text-primary"></span>
+        </td>
+        <td
+          *ngFor="let balance of item.balances"
+          scope="row"
+          class="text-center"
+        >
+          {{ balance.amount }}
+        </td>
+        <td scope="row" class="text-end">
+          <div class="d-flex justify-content-end">
+            <!-- <button class="btn btn-sm text-info ms-2">
               <span class="mdi mdi-pencil"></span>
             </button> -->
-              <button
-                class="btn btn-sm text-danger ms-2"
-                (click)="deleteUser(item)"
-              >
-                <span class="mdi mdi-delete"></span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </ng-container>
+            <button
+              class="btn btn-sm text-danger ms-2"
+              (click)="deleteUser(item)"
+            >
+              <span class="mdi mdi-delete"></span>
+            </button>
+          </div>
+        </td>
+      </tr>
     </tbody>
     <tbody *ngIf="loading">
       <tr>

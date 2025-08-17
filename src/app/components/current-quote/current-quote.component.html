@@ -44,7 +44,7 @@
             </div>
             <span
               >{{ selectedCurrency.code }}
-              {{ item.quote | number : "1.2-2" }}</span
+              {{ item.result | number : "1.2-2" }}</span
             >
           </div>
         </div>
@@ -90,7 +90,7 @@
               <span class="text-capitalize">{{ item.name }}</span>
             </div>
             <span
-              >{{ item.code }} {{ item.price * value | number : "1.2-2" }}</span
+              >{{ item.code }} {{ item.rate * value | number : "1.2-2" }}</span
             >
           </div>
         </div>

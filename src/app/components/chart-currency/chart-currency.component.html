@@ -1,11 +1,23 @@
-<div class="currency-chart">
-  <div class="bar-container">
-    <div class="bar gold bg-secondary" [style.height.%]="goldPercent"></div>
-    <span class="label">Ouro ({{ gold }})</span>
-  </div>
-
-  <div class="bar-container">
-    <div class="bar tibar bg-primary" [style.height.%]="tibarPercent"></div>
-    <span class="label">Tibar ({{ tibar }})</span>
+<div *ngIf="viewList" class="currency-chart">
+  <div *ngFor="let item of viewList" class="bar-container">
+    <div
+      class="bar"
+      [style.height.%]="item.heightPercent"
+      [style.background-color]="item.color"
+    >
+      <div class="bar-title">
+        <img
+          src="imgs/currency-{{ item.name }}.png"
+          class="me-2"
+          style="height: 20px"
+        />
+        <span class="text-capitalize">{{ item.name }}</span>
+      </div>
+    </div>
+    <div class="d-flex flex-column">
+      <span class="label text-nowrap">
+        ${{ item.code }} {{ item.amount | number : "1.0-2" }}
+      </span>
+    </div>
   </div>
 </div>

@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ChartCurrencyComponent } from '../chart-currency/chart-currency.component';
 import { CurrencySelectorComponent } from '../currency-selector/currency-selector.component';
-import { ApiService } from '../../services/api-service/api.service';
-import { CurrentQuoteService } from '../../services/current-quote.service/current-quote.service';
 import { FormsModule } from '@angular/forms';
+import { ApiKingdomService } from '../../services/api-kingdom/api-kingdom.service';
+import { switchMap, forkJoin, map } from 'rxjs';
+
 
 @Component({
   selector: 'app-current-quote',
@@ -25,8 +26,7 @@ export class CurrentQuoteComponent implements OnInit {
   public value = 1;
 
   constructor(
-    private apiService: ApiService,
-    private currentQuoteService: CurrentQuoteService
+    private apiKingdom: ApiKingdomService,
   ) { }
 
   ngOnInit(): void {
@@ -34,15 +34,41 @@ export class CurrentQuoteComponent implements OnInit {
   }
 
   private getCurrencyList() {
-    this.apiService.getData('currency').subscribe((res: any) => {
+    this.apiKingdom.getData('currencies').subscribe((res: any) => {
       this.currencyList = res;
     })
   }
 
-  onCurrencySelected(currency: any) {
-    this.getCurrencyList();
+  public onCurrencySelected(currency: any) {
     this.selectedCurrency = currency;
-    this.currentQuote = this.currentQuoteService.getQuote(this.currencyList, currency.code);
+
+    console.log(this.selectedCurrency);
+
+    this.apiKingdom.getData('currencies').pipe(
+      switchMap((list: any[]) =>
+        forkJoin(
+          list.map((c) =>
+            this.apiKingdom.postData('currencies/convert-preview', {
+              fromCode: currency.code,
+              toCode: c.code,
+              amount: 1,
+            }).pipe(
+              map((r: any) => ({
+                toCode: r.toCode,
+                name: c.name,
+                code: c.code,
+                color: c.color,
+                rate: r.rate,
+                result: r.result,
+              }))
+            )
+          )
+        )
+      )
+    ).subscribe((quotes) => {
+      this.currentQuote = quotes;
+      console.log(this.currentQuote)
+    });
   }
 
 }
