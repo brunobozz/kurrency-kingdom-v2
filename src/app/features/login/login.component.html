@@ -1,0 +1,43 @@
+<div
+  class="d-flex flex-column justify-content-center align-items-center"
+  style="height: 100vh"
+>
+  <div class="shadow rounded p-4 text-center bg-body-tertiary">
+    <img src="imgs/logoV_500.png" class="mb-4" width="200px" />
+    <div style="width: 300px">
+      <form (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <input
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="input-group mb-3">
+          <input
+            #pass
+            [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="password"
+            name="password"
+            class="form-control"
+            required
+          />
+          <span class="input-group-text" (click)="showPassword = !showPassword">
+            <span
+              class="mdi cursor-pointer"
+              [ngClass]="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+            ></span>
+          </span>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Entrar</button>
+        </div>
+        <p class="text-danger mt-2" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </p>
+      </form>
+    </div>
+  </div>
+</div>

@@ -5,6 +5,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { InterceptorHttpService } from './services/interceptor-http/interceptor-http.service';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import { AuthInterceptor } from './services/auth-interceptor/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,5 +24,7 @@ export const appConfig: ApplicationConfig = {
       multi: true,
     },
     provideHttpClient(withInterceptorsFromDi()),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
+
 };

@@ -6,8 +6,8 @@ import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class ApiService {
-  private API_URL = environment.API_JSON_SERVER;
+export class ApiKingdomService {
+  private API_URL = environment.API_URL;
 
   constructor(private http: HttpClient) { }
 
