@@ -1,1 +1,81 @@
-<p>currency-list works!</p>
+<div class="card table-responsive tableRadius border-bottom-0">
+  <table class="table table-striped align-middle mb-0">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col" class="text-center">Code</th>
+        <th scope="col" class="text-center">Valor Base</th>
+        <th scope="col" class="text-center">Cor</th>
+      </tr>
+    </thead>
+
+    <tbody *ngIf="!loading">
+      <ng-container *ngFor="let item of list">
+        <tr *ngIf="!item.isSystem">
+          <td scope="row">
+            <div class="d-flex align-items-center">
+              <img
+                src="imgs/currency-{{ item.name }}.png"
+                style="height: 16px"
+                class="me-2"
+              />
+              <span class="text-capitalize">{{ item.name }}</span>
+            </div>
+          </td>
+          <td scope="row" class="text-center">${{ item.code }}</td>
+          <td scope="row" class="text-center">
+            <div class="d-flex justify-content-center align-items-center">
+              <span>$Or</span>
+              <input
+                #factorToBase
+                class="form-control form-control-sm"
+                type="text"
+                [value]="item.factorToBase | number : '1.2-2'"
+                class="text-center ms-2"
+                style="width: 50px"
+                disabled
+              />
+              <button
+                *ngIf="factorToBase.disabled == true"
+                class="btn btn-sm text-info ms-2"
+                (click)="factorToBase.disabled = false"
+              >
+                <span class="mdi mdi-pencil"></span>
+              </button>
+              <button
+                *ngIf="factorToBase.disabled == false"
+                class="btn btn-sm text-primary ms-2"
+                (click)="
+                  factorToBase.disabled = true;
+                  saveFactor(item, factorToBase.value)
+                "
+              >
+                <span class="mdi mdi-content-save"></span>
+              </button>
+            </div>
+          </td>
+          <td scope="row" class="text-center">
+            <div class="d-flex justify-content-center">
+              <div
+                class="rounded-circle"
+                style="height: 24px; width: 24px"
+                [style.background-color]="item.color"
+              ></div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+    <tbody *ngIf="loading">
+      <tr>
+        <td colspan="5">
+          <div class="p-5 text-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

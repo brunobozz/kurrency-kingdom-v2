@@ -19,7 +19,6 @@ export class UserListComponent implements OnInit {
   constructor(
     private apiKingdom: ApiKingdomService,
     private toastr: ToastrService,
-
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +29,6 @@ export class UserListComponent implements OnInit {
     this.loading = true;
     this.apiKingdom.getData('users', true).subscribe((res: any) => {
       this.list = res;
-      console.log(this.list);
       this.loading = false;
     })
   }

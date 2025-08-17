@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
   private API_URL = environment.API_URL;
 
-  private apiUrl = this.API_URL + 'api/v1/auth';
+  private apiUrl = this.API_URL + 'auth';
 
   constructor(private http: HttpClient) { }
 
