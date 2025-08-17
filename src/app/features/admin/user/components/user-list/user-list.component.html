@@ -17,15 +17,6 @@
         <th scope="col" class="text-center">
           <div class="d-flex justify-content-center align-items-center">
             <img
-              src="imgs/currency-tibar.png"
-              style="height: 16px"
-              class="me-1"
-            />
-          </div>
-        </th>
-        <th scope="col" class="text-center">
-          <div class="d-flex justify-content-center align-items-center">
-            <img
               src="imgs/currency-prata.png"
               style="height: 16px"
               class="me-1"
@@ -41,34 +32,51 @@
             />
           </div>
         </th>
+        <th scope="col" class="text-center">
+          <div class="d-flex justify-content-center align-items-center">
+            <img
+              src="imgs/currency-tibar.png"
+              style="height: 16px"
+              class="me-1"
+            />
+          </div>
+        </th>
         <th scope="col" class="text-end">Ações</th>
       </tr>
     </thead>
     <tbody *ngIf="!loading">
-      <tr *ngFor="let item of list">
-        <td scope="row" class="text-capitalize">{{ item.name }}</td>
-        <td scope="row">{{ item.email }}</td>
-        <td scope="row" class="text-center">
-          <span *ngIf="item.isAdmin" class="mdi mdi-check text-primary"></span>
-        </td>
-        <td scope="row" class="text-center">0.00</td>
-        <td scope="row" class="text-center">0.00</td>
-        <td scope="row" class="text-center">0.00</td>
-        <td scope="row" class="text-center">0.00</td>
-        <td scope="row" class="text-end">
-          <div class="d-flex justify-content-end">
-            <!-- <button class="btn btn-sm text-info ms-2">
+      <ng-container *ngFor="let item of list">
+        <tr *ngIf="!item.isSystem">
+          <td scope="row" class="text-capitalize">{{ item.name }}</td>
+          <td scope="row">{{ item.email }}</td>
+          <td scope="row" class="text-center">
+            <span
+              *ngIf="item.isAdmin"
+              class="mdi mdi-check text-primary"
+            ></span>
+          </td>
+          <td
+            *ngFor="let balance of item.balances"
+            scope="row"
+            class="text-center"
+          >
+            {{ balance.amount }}
+          </td>
+          <td scope="row" class="text-end">
+            <div class="d-flex justify-content-end">
+              <!-- <button class="btn btn-sm text-info ms-2">
               <span class="mdi mdi-pencil"></span>
             </button> -->
-            <button
-              class="btn btn-sm text-danger ms-2"
-              (click)="deleteUser(item)"
-            >
-              <span class="mdi mdi-delete"></span>
-            </button>
-          </div>
-        </td>
-      </tr>
+              <button
+                class="btn btn-sm text-danger ms-2"
+                (click)="deleteUser(item)"
+              >
+                <span class="mdi mdi-delete"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
     <tbody *ngIf="loading">
       <tr>

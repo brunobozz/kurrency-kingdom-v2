@@ -30,6 +30,7 @@ export class UserListComponent implements OnInit {
     this.loading = true;
     this.apiKingdom.getData('users', true).subscribe((res: any) => {
       this.list = res;
+      console.log(this.list);
       this.loading = false;
     })
   }
@@ -39,7 +40,7 @@ export class UserListComponent implements OnInit {
     this.apiKingdom.deleteData('users/' + user.id, true).subscribe((res: any) => {
       this.getUsers();
       this.toastr.info(user.name, 'Usuário excluído!');
-    this.loading = false;
-  })
-}
+      this.loading = false;
+    })
+  }
 }
