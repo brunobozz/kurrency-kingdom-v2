@@ -3,6 +3,7 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ApiKingdomService } from '../../services/api-kingdom/api-kingdom.service';
+import { ChartCurrencyComponent } from '../chart-currency/chart-currency.component';
 
 @Component({
   selector: 'app-transaction-modal',
@@ -10,16 +11,20 @@ import { ApiKingdomService } from '../../services/api-kingdom/api-kingdom.servic
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ChartCurrencyComponent
   ],
   templateUrl: './transaction-modal.component.html',
   styleUrl: './transaction-modal.component.scss'
 })
 export class TransactionModalComponent implements OnInit {
+  private typingTimer: any; //for delay
   public currencyList: any;
   public currencyOrigin: any;
   public currencyDestiny: any;
   public currentQuote: any;
+
+  public userCurrenciesMe: any;
 
   public form: FormGroup;
   @Output() refreshList = new EventEmitter();
@@ -41,6 +46,7 @@ export class TransactionModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrencyList();
+    this.getMe();
   }
 
   private getCurrencyList() {
@@ -50,6 +56,13 @@ export class TransactionModalComponent implements OnInit {
         this.changeCurrencyOrigin(this.currencyList.find((item: any) => { return item.code == 'Tb' }));
         this.changeCurrencyDestiny(this.currencyList.find((item: any) => { return item.code == 'Or' }));
       }
+    })
+  }
+
+  private getMe() {
+    this.apiKingdom.getData('user-currencies/me').subscribe((res: any) => { 
+      console.log(res);
+      this.userCurrenciesMe = res;
     })
   }
 
@@ -68,18 +81,22 @@ export class TransactionModalComponent implements OnInit {
   }
 
   public calcConvertion() {
-    const body = {
-      fromCode: this.form.value.currencyOriginCode,
-      toCode: this.form.value.currencyDestinyCode,
-      amount: this.form.value.currencyOriginValue,
-    }
-    this.apiKingdom.postData('currencies/convert-preview', body).subscribe((res: any) => {
-      this.currentQuote = res;
-      this.form.patchValue({
-        'currencyDestinyValue': res.toAmountGross,
-        'authorize': false,
+    clearTimeout(this.typingTimer);
+    this.typingTimer = setTimeout(() => {
+      const body = {
+        fromCode: this.form.value.currencyOriginCode,
+        toCode: this.form.value.currencyDestinyCode,
+        amount: this.form.value.currencyOriginValue,
+      }
+      this.apiKingdom.postData('currencies/convert-preview', body).subscribe((res: any) => {
+        this.currentQuote = res;
+        console.log(res);
+        this.form.patchValue({
+          'currencyDestinyValue': res.toAmountGross,
+          'authorize': false,
+        })
       })
-    })
+    }, 500);
   }
 
   public validField(field: string) {
