@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api-service/api.service';
 import { RouterModule } from '@angular/router';
+import { ApiKingdomService } from '../../services/api-kingdom/api-kingdom.service';
 
 @Component({
   selector: 'app-last-transactions',
@@ -13,19 +14,15 @@ import { RouterModule } from '@angular/router';
 export class LastTransactionsComponent implements OnInit {
   public list: any = [];
 
-  constructor(private apiService: ApiService) { }
+  constructor(private ApiKingdom: ApiKingdomService) { }
 
   ngOnInit(): void {
     this.getLastTransactions();
   }
 
   public getLastTransactions() {
-    this.apiService.getData('transaction').subscribe((res: any[]) => {
-      this.list = res.sort((a, b) => {
-        const dateA = new Date(a.createdAt).getTime();
-        const dateB = new Date(b.createdAt).getTime();
-        return dateB - dateA;
-      });
+    this.ApiKingdom.getData('transactions').subscribe((res: any) => {
+      this.list = res.data;
     })
   }
 }
