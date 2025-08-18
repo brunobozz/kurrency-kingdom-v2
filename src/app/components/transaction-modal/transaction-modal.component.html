@@ -26,181 +26,204 @@
       </div>
 
       <div class="modal-body">
-        <!-- <span class="fw-bold">Saldo Atual</span>
-        <app-chart-currency [list]="userCurrenciesMe" height="100px"></app-chart-currency> -->
-        <form [formGroup]="form" (ngSubmit)="submitForm()">
-          <div class="row">
-            <div class="col-md-6 col-sm-12">
-              <div class="input-group has-validation mb-3">
-                <button
-                  *ngIf="currencyOrigin"
-                  class="btn dropdown-toggle"
-                  [style.background-color]="currencyOrigin.color"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <img
-                    src="imgs/currency-{{ currencyOrigin.name }}.png"
-                    style="height: 18px"
-                    class="me-2"
-                  />
-                  <span class="text-capitalize">
-                    <b>{{ currencyOrigin.name }}</b>
-                  </span>
-                </button>
-                <ul *ngIf="currencyList" class="dropdown-menu">
-                  <li
-                    *ngFor="let item of currencyList"
-                    class="dropdown-item text-capitalize"
-                    (click)="changeCurrencyOrigin(item); calcConvertion()"
-                  >
-                    <img
-                      src="imgs/currency-{{ item.name }}.png"
-                      style="height: 18px"
-                      class="me-2"
+        <div class="card mb-3">
+          <div class="card-header">Saldo Atual</div>
+          <div class="card-body">
+            <app-chart-currency
+              [list]="userCurrenciesMe"
+              height="100px"
+            ></app-chart-currency>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">Valores</div>
+          <div class="card-body">
+            <form [formGroup]="form" (ngSubmit)="submitForm()">
+              <div class="row">
+                <div class="col-md-6 col-sm-12">
+                  <div class="input-group has-validation mb-3">
+                    <button
+                      *ngIf="currencyOrigin"
+                      class="btn dropdown-toggle"
+                      [style.background-color]="currencyOrigin.color"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <img
+                        src="imgs/currency-{{ currencyOrigin.name }}.png"
+                        style="height: 18px"
+                        class="me-2"
+                      />
+                      <span class="text-capitalize">
+                        <b>{{ currencyOrigin.name }}</b>
+                      </span>
+                    </button>
+                    <ul *ngIf="currencyList" class="dropdown-menu">
+                      <li
+                        *ngFor="let item of currencyList"
+                        class="dropdown-item text-capitalize"
+                        (click)="changeCurrencyOrigin(item); calcConvertion()"
+                      >
+                        <img
+                          src="imgs/currency-{{ item.name }}.png"
+                          style="height: 18px"
+                          class="me-2"
+                        />
+                        <span>{{ item.code }} - {{ item.name }}</span>
+                      </li>
+                    </ul>
+                    <input
+                      type="text"
+                      class="form-control text-end"
+                      formControlName="currencyOriginValue"
+                      [ngClass]="{
+                        'is-invalid': validField('currencyOriginValue')
+                      }"
+                      (keyup)="calcConvertion()"
                     />
-                    <span>{{ item.code }} - {{ item.name }}</span>
-                  </li>
-                </ul>
-                <input
-                  type="text"
-                  class="form-control text-end"
-                  formControlName="currencyOriginValue"
-                  [ngClass]="{
-                    'is-invalid': validField('currencyOriginValue')
-                  }"
-                  (keyup)="calcConvertion()"
-                />
-                <div class="invalid-feedback text-end">Valor obrigatório</div>
-              </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-              <div class="input-group mb-3">
-                <button
-                  *ngIf="currencyDestiny"
-                  class="btn dropdown-toggle"
-                  [style.background-color]="currencyDestiny.color"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <img
-                    *ngIf="currencyDestiny"
-                    src="imgs/currency-{{ currencyDestiny.name }}.png"
-                    style="height: 18px"
-                    class="me-2"
-                  />
-                  <span class="text-capitalize">
-                    <b>{{ currencyDestiny.name }}</b>
-                  </span>
-                </button>
-                <ul *ngIf="currencyList" class="dropdown-menu">
-                  <li
-                    *ngFor="let item of currencyList"
-                    class="dropdown-item text-capitalize"
-                    (click)="changeCurrencyDestiny(item); calcConvertion()"
-                  >
-                    <img
-                      src="imgs/currency-{{ item.name }}.png"
-                      style="height: 18px"
-                      class="me-2"
+                    <div class="invalid-feedback text-end">
+                      Valor obrigatório
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <div class="input-group mb-3">
+                    <button
+                      *ngIf="currencyDestiny"
+                      class="btn dropdown-toggle"
+                      [style.background-color]="currencyDestiny.color"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <img
+                        *ngIf="currencyDestiny"
+                        src="imgs/currency-{{ currencyDestiny.name }}.png"
+                        style="height: 18px"
+                        class="me-2"
+                      />
+                      <span class="text-capitalize">
+                        <b>{{ currencyDestiny.name }}</b>
+                      </span>
+                    </button>
+                    <ul *ngIf="currencyList" class="dropdown-menu">
+                      <li
+                        *ngFor="let item of currencyList"
+                        class="dropdown-item text-capitalize"
+                        (click)="changeCurrencyDestiny(item); calcConvertion()"
+                      >
+                        <img
+                          src="imgs/currency-{{ item.name }}.png"
+                          style="height: 18px"
+                          class="me-2"
+                        />
+                        <span>{{ item.code }} - {{ item.name }}</span>
+                      </li>
+                    </ul>
+                    <input
+                      type="text"
+                      class="form-control text-end"
+                      formControlName="currencyDestinyValue"
+                      readonly
                     />
-                    <span>{{ item.code }} - {{ item.name }}</span>
-                  </li>
-                </ul>
-                <input
-                  type="text"
-                  class="form-control text-end"
-                  formControlName="currencyDestinyValue"
-                  readonly
-                />
+                  </div>
+                </div>
               </div>
-            </div>
+
+              <div
+                *ngIf="hasInsufficientOriginBalance()"
+                class="text-danger text-center"
+              >
+                Saldo insuficiente na moeda de origem.
+              </div>
+
+              <div *ngIf="currentQuote" class="mb-4">
+                <h5 class="text-center border-bottom p-2">
+                  Resumo da transação
+                </h5>
+                <div class="list-group list-group-flush">
+                  <div
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    <span>Moeda Origem</span>
+                    <span class="text-capitalize">
+                      ${{ form.value.currencyOriginCode }}
+                      {{ form.value.currencyOriginValue }}
+                    </span>
+                  </div>
+                  <div
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    <span>Cotação de conversão</span>
+                    <span>x {{ currentQuote.rate }}</span>
+                  </div>
+                  <div
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    <span>Moeda Destino</span>
+                    <span>
+                      ${{ form.value.currencyDestinyCode }}
+                      {{ form.value.currencyDestinyValue }}
+                    </span>
+                  </div>
+                  <div
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    <span>Taxa de Corretagem</span>
+                    <span>
+                      {{ currentQuote.feePercent * 100 }}% = ${{
+                        form.value.currencyDestinyCode
+                      }}
+                      {{ currentQuote.feeAmount }}
+                    </span>
+                  </div>
+                  <div
+                    class="list-group-item d-flex justify-content-between align-items-center fw-bold"
+                    style="background-color: rgba(0, 0, 0, 0.1)"
+                  >
+                    <span>Valor a receber</span>
+                    <span>
+                      ${{ form.value.currencyDestinyCode }}
+                      {{ currentQuote.toAmountNet }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <hr />
+
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <div *ngIf="currentQuote" class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      formControlName="authorize"
+                      value=""
+                      id="checkDefault"
+                      [ngClass]="{
+                        'is-invalid': validField('authorize')
+                      }"
+                    />
+                    <label class="form-check-label" for="checkDefault">
+                      Autorizo a transação
+                    </label>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="submitForm()"
+                >
+                  <span class="mdi mdi-check-bold me-1"></span>
+                  <span>Confirmar</span>
+                </button>
+              </div>
+            </form>
           </div>
-
-          <div *ngIf="currentQuote" class="mb-4">
-            <h5 class="text-center border-bottom p-2">Resumo da transação</h5>
-            <div class="list-group list-group-flush">
-              <div
-                class="list-group-item d-flex justify-content-between align-items-center"
-              >
-                <span>Moeda Origem</span>
-                <span class="text-capitalize">
-                  ${{ form.value.currencyOriginCode }}
-                  {{ form.value.currencyOriginValue }}
-                </span>
-              </div>
-              <div
-                class="list-group-item d-flex justify-content-between align-items-center"
-              >
-                <span>Cotação de conversão</span>
-                <span>x {{ currentQuote.rate }}</span>
-              </div>
-              <div
-                class="list-group-item d-flex justify-content-between align-items-center"
-              >
-                <span>Moeda Destino</span>
-                <span>
-                  ${{ form.value.currencyDestinyCode }}
-                  {{ form.value.currencyDestinyValue }}
-                </span>
-              </div>
-              <div
-                class="list-group-item d-flex justify-content-between align-items-center"
-              >
-                <span>Taxa de Corretagem</span>
-                <span>
-                  {{ currentQuote.feePercent * 100 }}% = ${{
-                    form.value.currencyDestinyCode
-                  }}
-                  {{ currentQuote.feeAmount }}
-                </span>
-              </div>
-              <div
-                class="list-group-item d-flex justify-content-between align-items-center fw-bold"
-                style="background-color: rgba(0, 0, 0, 0.1)"
-              >
-                <span>Valor a receber</span>
-                <span>
-                  ${{ form.value.currencyDestinyCode }}
-                  {{ currentQuote.toAmountNet }}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <hr />
-
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <div *ngIf="currentQuote" class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  formControlName="authorize"
-                  value=""
-                  id="checkDefault"
-                  [ngClass]="{
-                    'is-invalid': validField('authorize')
-                  }"
-                />
-                <label class="form-check-label" for="checkDefault">
-                  Autorizo a transação
-                </label>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              class="btn btn-primary"
-              (click)="submitForm()"
-            >
-              <span class="mdi mdi-check-bold me-1"></span>
-              <span>Confirmar</span>
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>

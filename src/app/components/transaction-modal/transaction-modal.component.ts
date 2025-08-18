@@ -60,7 +60,7 @@ export class TransactionModalComponent implements OnInit {
   }
 
   private getMe() {
-    this.apiKingdom.getData('user-currencies/me').subscribe((res: any) => { 
+    this.apiKingdom.getData('user-currencies/me').subscribe((res: any) => {
       console.log(res);
       this.userCurrenciesMe = res;
     })
@@ -115,27 +115,27 @@ export class TransactionModalComponent implements OnInit {
 
   public submitForm() {
     this.validForm();
+    if (this.hasInsufficientOriginBalance()) {
+      this.toastr.error('Saldo insuficiente na moeda de origem.', 'Transação negada!');
+      return;
+    }
+
     if (this.form.valid) {
       const body = {
-        "fromCode": this.form.value.currencyOriginCode,
-        "toCode": this.form.value.currencyDestinyCode,
-        "fromAmount": this.form.value.currencyOriginValue
-      }
+        fromCode: this.form.value.currencyOriginCode,
+        toCode: this.form.value.currencyDestinyCode,
+        fromAmount: this.form.value.currencyOriginValue
+      };
       this.makeExchange(body);
     } else {
       if (this.form.value.authorize == false) {
-        this.toastr.warning(
-          'Você precisa autorizar a transação marcando o checkbox.',
-          'Autorização necessária'
-        );
+        this.toastr.warning('Você precisa autorizar a transação marcando o checkbox.', 'Autorização necessária');
       } else {
-        this.toastr.error(
-          'Seu formulário está incompleto!',
-          'Transação negada!'
-        );
+        this.toastr.error('Seu formulário está incompleto!', 'Transação negada!');
       }
     }
   }
+
 
   private makeExchange(body: any) {
     this.apiKingdom.postData('transactions/exchange', body).subscribe((res: any) => {
@@ -149,10 +149,32 @@ export class TransactionModalComponent implements OnInit {
   }
 
   private resetModal() {
-    this.closeModal.nativeElement.click();
     this.form.reset();
     this.currentQuote = null;
     this.getCurrencyList();
+    this.getMe();
+    this.closeModal.nativeElement.click();
+  }
+
+  private round2(n: any): number {
+    const x = Number(n);
+    return Math.round((isNaN(x) ? 0 : x) * 100) / 100;
+  }
+
+  // saldo do usuário para um código de moeda
+  private getUserBalance(code: string): number {
+    if (!code || !Array.isArray(this.userCurrenciesMe)) return 0;
+    const row = this.userCurrenciesMe.find((it: any) => it.code === code);
+    return this.round2(row?.amount ?? 0);
+  }
+
+  // true = saldo insuficiente | false = ok
+  public hasInsufficientOriginBalance(): boolean {
+    const code = this.form.value.currencyOriginCode;
+    const req = this.round2(this.form.value.currencyOriginValue);
+    const bal = this.getUserBalance(code);
+    if (!code || !req) return false;
+    return req > bal;
   }
 
 }
