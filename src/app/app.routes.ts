@@ -10,6 +10,7 @@ import { LoginComponent } from './features/login/login.component';
 // FEATURES GUARD
 import { HomeComponent } from './features/home/home.component';
 import { TransactionsHistoryComponent } from './features/transactions-history/transactions-history.component';
+import { ProfileComponent } from './features/profile/profile.component';
 
 // FEATURES ADMIN
 import { AdminComponent } from './features/admin/admin.component';
@@ -30,6 +31,12 @@ export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    data: { showHeader: true, showFooter: true },
+    canActivate: [authGuard]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
     data: { showHeader: true, showFooter: true },
     canActivate: [authGuard]
   },
