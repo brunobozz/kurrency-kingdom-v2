@@ -1,4 +1,4 @@
-<div *ngIf="viewList" class="currency-chart">
+<div *ngIf="viewList" class="currency-chart" [style.height]="height">
   <div *ngFor="let item of viewList" class="bar-container">
     <div
       class="bar"

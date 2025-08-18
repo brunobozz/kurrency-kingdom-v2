@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
 
-
-
 @Component({
   selector: 'app-chart-currency',
   standalone: true,
@@ -12,6 +10,7 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 })
 export class ChartCurrencyComponent {
   @Input() list: any[] = [];
+  @Input() height: string = '300px';
   public viewList: any[] = [];
 
   private round2(n: number) {
