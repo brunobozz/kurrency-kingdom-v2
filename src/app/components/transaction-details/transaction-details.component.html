@@ -7,7 +7,7 @@
   aria-hidden="true"
 >
   <div class="modal-dialog modal-md modal-dialog-centered">
-    <div class="modal-content">
+    <div *ngIf="!loading" class="modal-content">
       <div
         class="modal-header p-3 border-0"
         style="background-color: rgba(0, 0, 0, 0.2)"
@@ -25,68 +25,82 @@
       </div>
 
       <div *ngIf="transaction" class="modal-body">
-        <h5>Cliente: {{ transaction.user }}</h5>
+        <div
+          class="justify-between p-3 rounded"
+          style="background-color: rgba(255, 255, 255, 0.2)"
+        >
+          <h5>{{ transaction.user.name }}</h5>
+          <span> {{ transaction.createdAtLocal }}h </span>
+        </div>
 
         <div class="list-group list-group-flush">
-          <div class="list-group-item justify-between">
-            <span>Data - Hora</span>
-            <span>
-              {{ transaction.createdAt | date : "dd/MM" }} -
-              {{ transaction.createdAt | date : "hh:mm:ss" }}h
-            </span>
-          </div>
           <div class="list-group-item justify-between">
             <span>Moeda Origem</span>
             <div class="justify-between">
               <img
-                src="imgs/currency-{{ transaction.currencyOrigin.name }}.png"
+                src="imgs/currency-{{ transaction.fromCurrency.name }}.png"
                 style="height: 16px"
                 class="me-1"
               />
               <span>
-                {{ transaction.currencyOrigin.code }}
-                {{ transaction.currencyOrigin.value }}
+                {{ transaction.fromCurrency.code }}$
+                {{ transaction.fromAmount }}
               </span>
             </div>
           </div>
           <div class="list-group-item justify-between">
             <span>Cotação de Conversão</span>
-            <span>x {{ transaction.quote }}</span>
+            <span>x {{ transaction.rate | number : "1.2-2" }}</span>
           </div>
           <div class="list-group-item justify-between">
             <span>Moeda Destino</span>
             <div class="justify-between">
               <img
-                src="imgs/currency-{{ transaction.currencyDestiny.name }}.png"
+                src="imgs/currency-{{ transaction.toCurrency.name }}.png"
                 style="height: 16px"
                 class="me-1"
               />
               <span>
-                {{ transaction.currencyDestiny.code }}
-                {{ transaction.currencyDestiny.value }}
+                {{ transaction.toCurrency.code }}$
+                {{ transaction.toAmountGross }}
               </span>
             </div>
           </div>
           <div class="list-group-item justify-between">
             <span>Taxa de Corretagem</span>
             <span>
-              {{ transaction.currencyOrigin.tax }}% =
-              {{ transaction.currencyDestiny.code }}
-              {{ transaction.taxValue }}
+              {{ transaction.feePercent | number : "1.2-2" }}% =
+              {{ transaction.toCurrency.code }}$
+              {{ transaction.feeAmount }}
             </span>
           </div>
 
           <div class="list-group-item justify-between">
             <span>Valor Recebido</span>
-            <span>
-              {{ transaction.currencyDestiny.code }}
-              {{ transaction.currencyDestiny.valueTaxed }}
-            </span>
+            <div class="justify-between">
+              <img
+                src="imgs/currency-{{ transaction.toCurrency.name }}.png"
+                style="height: 16px"
+                class="me-1"
+              />
+              <span>
+                {{ transaction.toCurrency.code }}$
+                {{ transaction.toAmountNet }}
+              </span>
+            </div>
           </div>
           <!-- <div class="list-group-item justify-between">
             <span></span>
             <span></span>
           </div> -->
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="modal-content">
+      <div class="p-5 m-5 text-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
       </div>
     </div>

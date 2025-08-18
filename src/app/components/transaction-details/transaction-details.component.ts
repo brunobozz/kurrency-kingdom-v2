@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api-service/api.service';
+import { ApiKingdomService } from '../../services/api-kingdom/api-kingdom.service';
 
 @Component({
   selector: 'app-transaction-details',
@@ -11,12 +12,16 @@ import { ApiService } from '../../services/api-service/api.service';
 })
 export class TransactionDetailsComponent {
   public transaction: any;
+  public loading = false;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiKingdom: ApiKingdomService) { }
 
   public getTransaction(id: string) {
-    this.apiService.getData('transaction/' + id).subscribe((res: any) => {
+    this.loading = true;
+    this.apiKingdom.getData('transactions/' + id, true).subscribe((res: any) => {
       this.transaction = res;
+      this.loading = false;
+      console.log(res);
     })
   }
 }
