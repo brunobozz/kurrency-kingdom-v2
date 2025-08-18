@@ -61,7 +61,6 @@ export class TransactionModalComponent implements OnInit {
 
   private getMe() {
     this.apiKingdom.getData('user-currencies/me').subscribe((res: any) => {
-      console.log(res);
       this.userCurrenciesMe = res;
     })
   }
@@ -88,14 +87,15 @@ export class TransactionModalComponent implements OnInit {
         toCode: this.form.value.currencyDestinyCode,
         amount: this.form.value.currencyOriginValue,
       }
-      this.apiKingdom.postData('currencies/convert-preview', body).subscribe((res: any) => {
-        this.currentQuote = res;
-        console.log(res);
-        this.form.patchValue({
-          'currencyDestinyValue': res.toAmountGross,
-          'authorize': false,
+      if (body.amount > 0) {
+        this.apiKingdom.postData('currencies/convert-preview', body).subscribe((res: any) => {
+          this.currentQuote = res;
+          this.form.patchValue({
+            'currencyDestinyValue': res.toAmountGross,
+            'authorize': false,
+          })
         })
-      })
+      }
     }, 500);
   }
 
@@ -119,7 +119,6 @@ export class TransactionModalComponent implements OnInit {
       this.toastr.error('Saldo insuficiente na moeda de origem.', 'Transação negada!');
       return;
     }
-
     if (this.form.valid) {
       const body = {
         fromCode: this.form.value.currencyOriginCode,
