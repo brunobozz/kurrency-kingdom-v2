@@ -3,7 +3,10 @@
     <div>
       <div class="menu-mobile-header">
         <div></div>
-        <span class="mdi mdi-close fs-2 ms-2 me-2" (click)="closeMenu()"></span>
+        <span
+          class="mdi mdi-close fs-2 ms-2 me-2 cursor-pointer"
+          (click)="closeMenu()"
+        ></span>
       </div>
       <div class="menu-mobile-content">
         <div *ngIf="user" class="p-4">
@@ -15,10 +18,7 @@
         </div>
         <div class="links">
           <ng-container *ngFor="let item of menu">
-            <a
-              [routerLink]="item.route"
-              (click)="closeMenu()"
-            >
+            <a [routerLink]="item.route" (click)="closeMenu()">
               <span class="mdi me-2 {{ item.icon }}"></span>
               <span>{{ item.title }}</span>
             </a>
