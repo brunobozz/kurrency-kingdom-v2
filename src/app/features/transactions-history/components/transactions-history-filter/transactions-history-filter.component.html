@@ -6,10 +6,10 @@
   <div class="col-lg-3 col-md-6">
     <div class="mb-3">
       <input
-        [(ngModel)]="filter.text"
+        [(ngModel)]="filter.term"
         type="text"
         class="form-control"
-        placeholder="Usuário ou ID"
+        placeholder="Usuário"
         (keyup)="filterList()"
       />
     </div>
@@ -33,7 +33,7 @@
         class="form-select"
         (change)="filterList()"
       >
-        <option [ngValue]="null" selected>Moeda Origem</option>
+        <option value="" selected>Moeda Origem</option>
         <option value="Or$">Ouro</option>
         <option value="Tb$">Tibar</option>
         <option value="Pr$">Prata</option>
@@ -48,7 +48,7 @@
         class="form-select"
         (change)="filterList()"
       >
-        <option [ngValue]="null" selected>Moeda Destino</option>
+        <option value="" selected>Moeda Destino</option>
         <option value="Or$">Ouro</option>
         <option value="Tb$">Tibar</option>
         <option value="Pr$">Prata</option>

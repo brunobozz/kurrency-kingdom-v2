@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ApiService } from '../../services/api-service/api.service';
+import { ApiKingdomService } from '../../services/api-kingdom/api-kingdom.service';
 
 //COMPONENTS
 import { FeatureHeaderComponent } from '../../components/feature-header/feature-header.component';
@@ -31,81 +31,56 @@ import { TransactionDetailsComponent } from '../../components/transaction-detail
 })
 export class TransactionsHistoryComponent {
   public list: any[] = [];
-  public filteredList: any[] = [];
 
   // paginação
-  public pagedList: any[] = [];
-  public page = 1;
-  public pageSize = 5;
-  public totalPages = 1;
+  public limit: string = '10';
+  public orderBy: string = 'createdAt';
+  public order: string = 'DESC';
+  public page: number = 1;
+  public totalPages: number = 1;
+  public totalItems: number = 0;
+  public term: string = '';
+  public date: string = '';
+  public currencyOrigin: string = '';
+  public currencyDestiny: string = '';
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiKingdom: ApiKingdomService) { }
 
   ngOnInit(): void {
     this.getTransactions();
   }
 
   public getTransactions() {
-    this.apiService.getData('transaction').subscribe((res: any[]) => {
-      this.list = (res ?? []).sort((a, b) => {
-        const dateA = new Date(a.createdAt).getTime();
-        const dateB = new Date(b.createdAt).getTime();
-        return dateB - dateA;
-      });
-
-      this.filteredList = [...this.list];
-      this.page = 1;
-      this.updatePaging();
+    let params = `limit=${this.limit}&page=${this.page}&orderBy=${this.orderBy}&order=${this.order}&term=${this.term}&date=${this.date}&currencyOrigin=${this.currencyOrigin}&currencyDestiny=${this.currencyDestiny}`;
+    this.apiKingdom.getData(`transactions?${params}`).subscribe((res: any) => {
+      console.log('transactions', res);
+      this.list = res.data;
+      this.totalItems = res.total;
+      this.totalPages = res.meta.totalPages;
     });
   }
 
-  public filterList(filter: {
-    text?: string;
-    date?: string | null;
-    currencyOrigin?: string | null;
-    currencyDestiny?: string | null;
-  }) {
-    this.filteredList = this.list.filter((item: any) => {
-      if (filter.text) {
-        const t = filter.text.toLowerCase();
-        if (
-          !item.id.toLowerCase().includes(t) &&
-          !item.user.toLowerCase().includes(t)
-        ) return false;
-      }
+  public changePage(page: number) {
+    this.page = page;
+    this.getTransactions();
+  }
 
-      if (filter.date) {
-        const filtroData = new Date(filter.date).toISOString().slice(0, 10);
-        const itemData = new Date(item.createdAt).toISOString().slice(0, 10);
-        if (itemData !== filtroData) return false;
-      }
-
-      if (filter.currencyOrigin) {
-        if (item.currencyOrigin.code !== filter.currencyOrigin) return false;
-      }
-
-      if (filter.currencyDestiny) {
-        if (item.currencyDestiny.code !== filter.currencyDestiny) return false;
-      }
-
-      return true;
-    });
-
-    // sempre resetar para a 1ª página após filtrar
+  // FILTERS
+  public applyFilters(filters: any) {
+    console.log(filters)
+    this.term = filters.term;
+    this.date = filters.date;
+    this.currencyOrigin = filters.currencyOrigin;
+    this.currencyDestiny = filters.currencyDestiny;
     this.page = 1;
-    this.updatePaging();
+    this.getTransactions();
   }
 
-  // chamado pelo seu <app-list-paginator (onPageChange)="changePage($event)">
-  public changePage(p: number) {
-    this.page = Math.max(1, Math.min(p, this.totalPages));
-    this.updatePaging();
-  }
-
-  // --- helpers ---
-  private updatePaging() {
-    this.totalPages = Math.max(1, Math.ceil(this.filteredList.length / this.pageSize));
-    const start = (this.page - 1) * this.pageSize;
-    this.pagedList = this.filteredList.slice(start, start + this.pageSize);
-  }
+  // // REORDER LIST (ordenar por coluna)
+  // public reorderGames(column: string) {
+  //   this.order =
+  //     this.orderBy === column ? (this.order === 'ASC' ? 'DESC' : 'ASC') : 'ASC';
+  //   this.orderBy = column;
+  //   this.getUsers();
+  // }
 }

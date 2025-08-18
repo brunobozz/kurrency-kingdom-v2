@@ -122,13 +122,20 @@ export class TransactionModalComponent implements OnInit {
 
   private makeExchange(body: any) {
     this.apiKingdom.postData('transactions/exchange', body).subscribe((res: any) => {
-      this.closeModal.nativeElement.click();
       this.refreshList.emit();
       this.toastr.success(
         'Currency Kingdom agradece!',
         'Transação efetuada!'
       );
+      this.resetModal();
     })
+  }
+
+  private resetModal() {
+    this.closeModal.nativeElement.click();
+    this.form.reset();
+    this.currentQuote = null;
+    this.getCurrencyList();
   }
 
 }

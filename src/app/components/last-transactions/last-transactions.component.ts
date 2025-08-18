@@ -14,6 +14,11 @@ import { ApiKingdomService } from '../../services/api-kingdom/api-kingdom.servic
 export class LastTransactionsComponent implements OnInit {
   public list: any = [];
 
+  public limit: string = '5';
+  public orderBy: string = 'createdAt';
+  public order: string = 'DESC';
+  public page: number = 1;
+
   constructor(private ApiKingdom: ApiKingdomService) { }
 
   ngOnInit(): void {
@@ -21,7 +26,8 @@ export class LastTransactionsComponent implements OnInit {
   }
 
   public getLastTransactions() {
-    this.ApiKingdom.getData('transactions').subscribe((res: any) => {
+    let params = `limit=${this.limit}&page=${this.page}&orderBy=${this.orderBy}&order=${this.order}`;
+    this.ApiKingdom.getData(`transactions?${params}`).subscribe((res: any) => {
       this.list = res.data;
     })
   }

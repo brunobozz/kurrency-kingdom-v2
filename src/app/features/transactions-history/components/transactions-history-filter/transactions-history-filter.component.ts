@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ApiService } from '../../../../services/api-service/api.service';
+import { ApiKingdomService } from '../../../../services/api-kingdom/api-kingdom.service';
 
 @Component({
   selector: 'app-transactions-history-filter',
@@ -14,20 +14,20 @@ export class TransactionsHistoryFilterComponent implements OnInit {
   @Output() sendFilter = new EventEmitter<any>();
   public currencyList: any;
   public filter = {
-    text: '',
-    date: null,
-    currencyOrigin: null,
-    currencyDestiny: null,
+    term: '',
+    date: '',
+    currencyOrigin: '',
+    currencyDestiny: '',
   }
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiKingdom: ApiKingdomService) { }
 
   ngOnInit(): void {
     this.getCurrencyList();
   }
 
   private getCurrencyList() {
-    this.apiService.getData('currency').subscribe((res: any) => {
+    this.apiKingdom.getData('currencies').subscribe((res: any) => {
       this.currencyList = res;
     })
   }

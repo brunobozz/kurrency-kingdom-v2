@@ -5,10 +5,10 @@
 <div class="container">
   <app-transactions-history-header></app-transactions-history-header>
   <app-transactions-history-filter
-    (sendFilter)="filterList($event)"
+    (sendFilter)="applyFilters($event)"
   ></app-transactions-history-filter>
   <app-transactions-history-list
-    [list]="pagedList"
+    [list]="list"
     (callDetails)="details.getTransaction($event)"
   ></app-transactions-history-list>
   <div class="d-flex justify-content-end mt-3">

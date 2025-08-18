@@ -2,48 +2,57 @@
   <table class="table table-striped align-middle mb-0">
     <thead>
       <tr>
-        <th scope="col">ID</th>
         <th scope="col">Usuário</th>
         <th scope="col" class="text-center">Data e Hora</th>
-        <th scope="col" class="text-center">Moeda Origem</th>
-        <th scope="col" class="text-center">Cotação</th>
-        <th scope="col" class="text-center">Moeda Destino</th>
+        <th scope="col" class="text-end">Moeda Origem</th>
+        <th scope="col" class="text-end">Cotação</th>
+        <th scope="col" class="text-end">Moeda Destino</th>
+        <th scope="col" class="text-end">Taxa</th>
         <th scope="col" class="text-end">Ações</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of list">
-        <th scope="row">{{ item.id }}</th>
-        <th scope="row" class="text-capitalize">{{ item.user }}</th>
-        <td class="text-center">
-          {{ item.createdAt | date : "dd/MM" }} -
-          {{ item.createdAt | date : "hh:mm:ss" }}h
-        </td>
-        <td class="text-center">
-          <div class="d-flex justify-content-center align-items-center">
+        <th scope="row" class="text-capitalize">{{ item.user.name }}</th>
+        <td class="text-center">{{ item.createdAtLocal }}h</td>
+        <td class="text-end">
+          <div class="d-flex justify-content-end align-items-center">
             <img
               *ngIf="item"
-              src="imgs/currency-{{ item.currencyOrigin.name }}.png"
+              src="imgs/currency-{{ item.fromCurrency.name }}.png"
               style="height: 16px"
               class="me-1"
             />
             <span>
-              <b>{{ item.currencyOrigin.code }}</b>
-              {{ item.currencyOrigin.value | number : "1.2-2" }}
+              <b>{{ item.fromCurrency.code }}$</b>
+              {{ item.fromAmount | number : "1.2-2" }}
             </span>
           </div>
         </td>
-        <td class="text-center">x {{ item.quote }}</td>
-        <td class="text-center">
-          <div class="d-flex justify-content-center align-items-center">
+        <td class="text-end">x {{ item.rate | number : "1.2-2" }}</td>
+        <td class="text-end">
+          <div class="d-flex justify-content-end align-items-center">
             <img
-              src="imgs/currency-{{ item.currencyDestiny.name }}.png"
+              src="imgs/currency-{{ item.toCurrency.name }}.png"
               style="height: 16px"
               class="me-1"
             />
             <span>
-              <b>{{ item.currencyDestiny.code }}</b>
-              {{ item.currencyDestiny.value | number : "1.2-2" }}
+              <b>{{ item.toCurrency.code }}$</b>
+              {{ item.toAmountGross | number : "1.2-2" }}
+            </span>
+          </div>
+        </td>
+        <td class="text-end">
+          <div class="d-flex justify-content-end align-items-center">
+            <img
+              src="imgs/currency-{{ item.toCurrency.name }}.png"
+              style="height: 16px"
+              class="me-1"
+            />
+            <span>
+              <b>{{ item.toCurrency.code }}$</b>
+              {{ item.feeAmount | number : "1.2-2" }}
             </span>
           </div>
         </td>
