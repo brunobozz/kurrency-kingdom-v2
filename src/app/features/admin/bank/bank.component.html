@@ -1,4 +1,12 @@
 <div class="mt-4">
-  <h2>Cofre</h2>
-  <app-chart-currency [list]="list"></app-chart-currency>
+  <h3>
+    <span class="mdi mdi-piggy-bank me-2"></span>
+    <span>Cofres do Banco</span>
+  </h3>
+  <app-chart-currency *ngIf="!loading" [list]="list"></app-chart-currency>
+  <div *ngIf="loading" class="p-5 m-5 text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
 </div>

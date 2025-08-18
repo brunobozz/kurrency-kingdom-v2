@@ -15,6 +15,7 @@ import { ChartCurrencyComponent } from '../../../components/chart-currency/chart
 })
 export class BankComponent implements OnInit {
   public list: any;
+  public loading = false;
 
   constructor(private apiKingdom: ApiKingdomService) { }
 
@@ -23,9 +24,10 @@ export class BankComponent implements OnInit {
   }
 
   public getBankVault() {
+    this.loading = true;
     this.apiKingdom.getData('users/system', true).subscribe((res: any) => {
-      console.log(res);
       this.list = res.balances;
+      this.loading = false;
     })
   }
 }

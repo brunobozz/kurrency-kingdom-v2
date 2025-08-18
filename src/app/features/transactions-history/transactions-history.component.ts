@@ -53,7 +53,6 @@ export class TransactionsHistoryComponent {
   public getTransactions() {
     let params = `limit=${this.limit}&page=${this.page}&orderBy=${this.orderBy}&order=${this.order}&term=${this.term}&date=${this.date}&currencyOrigin=${this.currencyOrigin}&currencyDestiny=${this.currencyDestiny}`;
     this.apiKingdom.getData(`transactions?${params}`).subscribe((res: any) => {
-      console.log('transactions', res);
       this.list = res.data;
       this.totalItems = res.total;
       this.totalPages = res.meta.totalPages;
@@ -67,7 +66,6 @@ export class TransactionsHistoryComponent {
 
   // FILTERS
   public applyFilters(filters: any) {
-    console.log(filters)
     this.term = filters.term;
     this.date = filters.date;
     this.currencyOrigin = filters.currencyOrigin;

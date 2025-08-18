@@ -34,7 +34,5 @@ export class ChartCurrencyComponent {
         heightPercent: this.round2(heightPercent),
       };
     });
-
-    console.log(this.viewList)
   }
 }
