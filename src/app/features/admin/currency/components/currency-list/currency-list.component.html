@@ -4,7 +4,7 @@
       <tr>
         <th scope="col">Nome</th>
         <th scope="col" class="text-center">Code</th>
-        <th scope="col" class="text-center">Valor Base</th>
+        <th scope="col" class="text-center">Valor Base (Or$)</th>
         <th scope="col" class="text-center">Cor</th>
       </tr>
     </thead>
@@ -22,10 +22,10 @@
               <span class="text-capitalize">{{ item.name }}</span>
             </div>
           </td>
-          <td scope="row" class="text-center">${{ item.code }}</td>
+          <td scope="row" class="text-center">{{ item.code }}$</td>
           <td scope="row" class="text-center">
             <div class="d-flex justify-content-center align-items-center">
-              <span>$Or</span>
+              <span>1 x Or$ = {{ item.code }}$</span>
               <input
                 #factorToBase
                 class="form-control form-control-sm"

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthService {
 
   private apiUrl = this.API_URL + 'auth';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, { email, password });
@@ -31,7 +32,8 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {
@@ -39,15 +41,15 @@ export class AuthService {
   }
 
   getUser() {
-  const token = localStorage.getItem('token');
-  if (!token) return null;
+    const token = localStorage.getItem('token');
+    if (!token) return null;
 
-  const payload = JSON.parse(atob(token.split('.')[1]));
-  return {
-    email: payload.email,
-    isAdmin: payload.isAdmin,
-    id: payload.sub,
-  };
-}
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return {
+      email: payload.email,
+      isAdmin: payload.isAdmin,
+      id: payload.sub,
+    };
+  }
 
 }

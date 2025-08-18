@@ -1,6 +1,6 @@
 <div class="navbar bg-primary sticky-top">
   <div class="container-fluid">
-    <div class="d-none d-lg-block">
+    <div>
       <button class="btn btn-primary" (click)="openMenu()">
         <span class="mdi mdi-menu"></span>
       </button>
@@ -15,7 +15,15 @@
       </a>
     </div>
     <div class="actions d-flex align-items-center">
-      <app-theme-switcher></app-theme-switcher>
+      <button
+        class="btn btn-primary"
+        [routerLink]="['/profile']"
+        routerLinkActive="router-link-active"
+        [title]="user.email"
+      >
+        <span class="mdi mdi-account"></span>
+      </button>
+      <!-- <app-theme-switcher></app-theme-switcher> -->
     </div>
   </div>
 </div>

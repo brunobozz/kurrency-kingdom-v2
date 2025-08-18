@@ -1,19 +1,41 @@
 <div class="menu" [ngClass]="{ active: opened }">
   <div class="menu-mobile">
-    <div class="menu-mobile-header">
-      <div></div>
-      <span class="mdi mdi-close fs-2 ms-2 me-2" (click)="closeMenu()"></span>
+    <div>
+      <div class="menu-mobile-header">
+        <div></div>
+        <span class="mdi mdi-close fs-2 ms-2 me-2" (click)="closeMenu()"></span>
+      </div>
+      <div class="menu-mobile-content">
+        <div *ngIf="user" class="p-4">
+          <div
+            class="d-flex flex-colum align-items-center justify-content-center"
+          >
+            <b>{{ user.email }}</b>
+          </div>
+        </div>
+        <div class="links">
+          <ng-container *ngFor="let item of menu">
+            <a
+              [routerLink]="item.route"
+              (click)="closeMenu()"
+            >
+              <span class="mdi me-2 {{ item.icon }}"></span>
+              <span>{{ item.title }}</span>
+            </a>
+          </ng-container>
+        </div>
+      </div>
+      <div class="ps-4 pe-4">
+        <hr />
+        <app-theme-switcher type="link"></app-theme-switcher>
+      </div>
     </div>
-    <div class="menu-mobile-content">
-      <div class="links">
-        <a
-          *ngFor="let item of menu"
-          [routerLink]="item.route"
-          (click)="closeMenu()"
-        >
-          <span class="mdi me-2 {{ item.icon }}"></span>
-          <span>{{ item.title }}</span>
-        </a>
+    <div class="ps-4 pe-4 pb-4">
+      <div class="d-grid">
+        <button class="btn btn-dark text-light" (click)="logout()">
+          <span class="mdi mdi-logout"></span>
+          <span>Sair</span>
+        </button>
       </div>
     </div>
   </div>

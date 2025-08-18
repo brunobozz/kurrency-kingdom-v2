@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth-service/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -18,14 +19,19 @@ export class LoginComponent {
 
   showPassword = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService
+  ) { }
 
   onSubmit() {
     this.authService.login(this.email, this.password).subscribe({
       next: (res: any) => {
         this.authService.setToken(res.access_token);
-        this.router.navigate(['/']);
+        window.location.href = '/';
         (err: any) => {
+          this.toastr.error('Login inválido', 'Erro!')
           this.errorMessage = err.error.message || 'Login inválido';
         }
       }

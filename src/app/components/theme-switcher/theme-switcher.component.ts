@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-theme-switcher',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './theme-switcher.component.html',
   styleUrls: ['./theme-switcher.component.scss']
 })
 export class ThemeSwitcherComponent implements OnInit {
-
+  @Input() type: string = 'button';
   currentTheme: 'dark' | 'light' = 'dark';
 
   ngOnInit(): void {
